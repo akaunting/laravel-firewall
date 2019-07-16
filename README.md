@@ -53,7 +53,7 @@ Middlewares are already defined so should just add them to routes. The `firewall
 
 ```php
 Route::group(['middleware' => 'firewall.all'], function () {
-	Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index');
 });
 ```
 
@@ -61,12 +61,12 @@ You can also apply each middleware per route:
 
 ```php
 Route::group(['middleware' => 'firewall.all'], function () {
-	Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index');
 });
 
 // Only admins
 Route::group(['middleware' => 'firewall.whitelist'], function () {
-	Route::get('/admin', 'AdminController@index');
+    Route::get('/admin', 'AdminController@index');
 });
 ```
 
