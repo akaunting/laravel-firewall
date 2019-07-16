@@ -3,7 +3,7 @@
 [![Version](https://poser.pugx.org/akaunting/firewall/v/stable.svg)](https://github.com/akaunting/firewall/releases)
 ![Downloads](https://poser.pugx.org/akaunting/firewall/d/total.svg)
 ![Build Status](https://travis-ci.com/akaunting/firewall.svg)
-[![StyleCI](https://styleci.io/repos/112121508/shield?style=flat&branch=master)](https://styleci.io/repos/112121508)
+[![StyleCI](https://styleci.io/repos/197242392/shield?style=flat&branch=master)](https://styleci.io/repos/197242392)
 [![Quality](https://scrutinizer-ci.com/g/akaunting/firewall/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/akaunting/firewall)
 [![License](https://poser.pugx.org/akaunting/firewall/license.svg)](LICENSE.md)
 
@@ -60,10 +60,6 @@ Route::group(['middleware' => 'firewall.all'], function () {
 You can also apply each middleware per route:
 
 ```php
-Route::group(['middleware' => 'firewall.all'], function () {
-    Route::get('/', 'HomeController@index');
-});
-
 // Only admins
 Route::group(['middleware' => 'firewall.whitelist'], function () {
     Route::get('/admin', 'AdminController@index');
