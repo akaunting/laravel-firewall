@@ -20,8 +20,8 @@ class Lfi extends Base
         }
 
         $patterns = [
-			'#\.\/#is',
-		];
+            '#\.\/#is',
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));
