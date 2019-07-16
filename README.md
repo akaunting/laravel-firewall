@@ -57,11 +57,18 @@ Route::group(['middleware' => 'firewall.all'], function () {
 });
 ```
 
-You can also apply each middleware per route:
+You can apply each middleware per route. For example, you can allow only whitelisted IPs to access admin:
 
 ```php
-// Only admins
 Route::group(['middleware' => 'firewall.whitelist'], function () {
+    Route::get('/admin', 'AdminController@index');
+});
+```
+
+Or you can get notified when anyone NOT in `whitelist` access admin, by adding it to the `inspections` config:
+
+```php
+Route::group(['middleware' => 'firewall.url'], function () {
     Route::get('/admin', 'AdminController@index');
 });
 ```
@@ -76,6 +83,7 @@ firewall.php
 firewall.rfi
 firewall.session
 firewall.sqli
+firewall.url
 firewall.whitelist
 firewall.xss
 ```

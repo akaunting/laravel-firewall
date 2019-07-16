@@ -72,6 +72,18 @@ return [
         ],
     ],
 
+    'url' => [
+        'requests' => ['all'],
+        
+        'auto_block' => [
+            'attempts' => 3,
+            'frequency' => 1 * 60, // 1 minute
+            'period' => 30 * 60, // 30 minutes
+        ],
+        
+        'inspections' => [], // i.e. 'admin'
+    ],
+
     'whitelist' => [
         'requests' => ['all'],
     ],
