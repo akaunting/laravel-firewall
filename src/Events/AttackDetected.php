@@ -2,9 +2,7 @@
 
 namespace Akaunting\Firewall\Events;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-
-class AttackDetected implements ShouldQueue
+class AttackDetected
 {
     public $log;
 

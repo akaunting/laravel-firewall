@@ -2,12 +2,16 @@
 
 namespace Akaunting\Firewall\Notifications;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 
-class AttackDetected extends Notification
+class AttackDetected extends Notification implements ShouldQueue
 {
+    use Queueable;
+
     /**
      * The log model.
      *
