@@ -24,13 +24,13 @@ class Php extends Base
             'expect://',
             'glob://',
             'phar://',
-			'php://',
+            'php://',
             'ogg://',
             'rar://',
             'ssh2://',
             'zip://',
             'zlib://',
-		];
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));
@@ -40,33 +40,33 @@ class Php extends Base
     }
     
     public function match($pattern, $input)
-	{
-		$result = false;
+    {
+        $result = false;
 
-		if (!is_array($input) && !is_string($input)) {
-			return false;
-		}
+        if (!is_array($input) && !is_string($input)) {
+            return false;
+        }
 
-		if (!is_array($input)) {
+        if (!is_array($input)) {
             return (stripos($input, $pattern) === 0);
-		}
+        }
 
-		foreach ($input as $key => $value) {
-			if (is_array($value)) {
-				if (!$result = $this->match($pattern, $value)) {
-					continue;
-				}
+        foreach ($input as $key => $value) {
+            if (is_array($value)) {
+                if (!$result = $this->match($pattern, $value)) {
+                    continue;
+                }
 
-				break;
-			}
+                break;
+            }
 
-			if (!$result = (stripos($value, $pattern) === 0)) {
-				continue;
-			}
-            
+            if (!$result = (stripos($value, $pattern) === 0)) {
+                continue;
+            }
+
             break;
-		}
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 }

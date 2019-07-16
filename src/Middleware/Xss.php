@@ -20,8 +20,8 @@ class Xss extends Base
         }
 
         $patterns = [
-			'#<[^>]*\w*\"?[^>]*>#is',
-		];
+            '#<[^>]*\w*\"?[^>]*>#is',
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));

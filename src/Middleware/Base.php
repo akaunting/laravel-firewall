@@ -97,35 +97,35 @@ abstract class Base
     }
     
     public function match($pattern, $input)
-	{
-		$result = false;
+    {
+        $result = false;
 
-		if (!is_array($input) && !is_string($input)) {
-			return false;
-		}
+        if (!is_array($input) && !is_string($input)) {
+            return false;
+        }
 
-		if (!is_array($input)) {
-			return preg_match($pattern, $input);
-		}
+        if (!is_array($input)) {
+            return preg_match($pattern, $input);
+        }
 
-		foreach ($input as $key => $value) {
-			if (is_array($value)) {
-				if (!$result = $this->match($pattern, $value)) {
-					continue;
-				}
+        foreach ($input as $key => $value) {
+            if (is_array($value)) {
+                if (!$result = $this->match($pattern, $value)) {
+                    continue;
+                }
 
-				break;
-			}
+                break;
+            }
 
-			if (!$result = preg_match($pattern, $value)) {
-				continue;
-			}
-            
+            if (!$result = preg_match($pattern, $value)) {
+                continue;
+            }
+
             break;
-		}
+        }
 
-		return $result;
-	}
+        return $result;
+    }
     
     public function log()
     {

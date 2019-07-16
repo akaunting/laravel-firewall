@@ -20,9 +20,9 @@ class Sqli extends Base
         }
 
         $patterns = [
-			'#[\d\W](union select|union join|union distinct)[\d\W]#is',
-			'#[\d\W](union|union select|insert|from|where|concat|into|cast|truncate|select|delete|having)[\d\W]#is',
-		];
+            '#[\d\W](union select|union join|union distinct)[\d\W]#is',
+            '#[\d\W](union|union select|insert|from|where|concat|into|cast|truncate|select|delete|having)[\d\W]#is',
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));

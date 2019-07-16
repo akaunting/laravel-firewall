@@ -20,9 +20,9 @@ class Session extends Base
         }
 
         $patterns = [
-			'@[\|:]O:\d{1,}:"[\w_][\w\d_]{0,}":\d{1,}:{@i',
-			'@[\|:]a:\d{1,}:{@i',
-		];
+            '@[\|:]O:\d{1,}:"[\w_][\w\d_]{0,}":\d{1,}:{@i',
+            '@[\|:]a:\d{1,}:{@i',
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));

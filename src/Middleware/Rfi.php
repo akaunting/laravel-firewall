@@ -20,8 +20,8 @@ class Rfi extends Base
         }
 
         $patterns = [
-			'#(http|ftp){1,1}(s){0,1}://.*#i',
-		];
+            '#(http|ftp){1,1}(s){0,1}://.*#i',
+        ];
 
         if ($this->check($patterns)) {
             return $this->respond(config('firewall.responses.block'));
@@ -31,43 +31,43 @@ class Rfi extends Base
     }
     
     public function match($pattern, $input)
-	{
-		$result = false;
+    {
+        $result = false;
 
-		if (!is_array($input) && !is_string($input)) {
-			return false;
-		}
+        if (!is_array($input) && !is_string($input)) {
+            return false;
+        }
 
-		if (!is_array($input)) {
-			if (!$result = preg_match($pattern, $this->applyExceptions($input))) {
+        if (!is_array($input)) {
+            if (!$result = preg_match($pattern, $this->applyExceptions($input))) {
                 return false;
             }
-            
+
             return $this->checkContent($result);
-		}
+        }
 
-		foreach ($input as $key => $value) {
-			if (is_array($value)) {
-				if (!$result = $this->match($pattern, $value)) {
-					continue;
-				}
+        foreach ($input as $key => $value) {
+            if (is_array($value)) {
+                if (!$result = $this->match($pattern, $value)) {
+                    continue;
+                }
 
-				break;
-			}
+                break;
+            }
 
-			if (!$result = preg_match($pattern, $this->applyExceptions($value))) {
-				continue;
-			}
-            
+            if (!$result = preg_match($pattern, $this->applyExceptions($value))) {
+                continue;
+            }
+
             if (!$this->checkContent($result)) {
                 continue;
             }
-            
-            break;
-		}
 
-		return $result;
-	}
+            break;
+        }
+
+        return $result;
+    }
     
     protected function applyExceptions($string)
     {
@@ -79,7 +79,7 @@ class Rfi extends Base
         $exceptions[] = 'https://' . $domain;
         $exceptions[] = 'http://&';
         $exceptions[] = 'https://&';
-        
+
         return str_replace($exceptions, '', $string);
     }
     
