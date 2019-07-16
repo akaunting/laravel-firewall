@@ -27,7 +27,7 @@ class BlockIp
             return;
         }
 
-        $ip = Ip::create([
+        Ip::create([
             'ip' => $event->log->ip,
             'log_id' => $event->log->id,
         ]);

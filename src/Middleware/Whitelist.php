@@ -28,6 +28,6 @@ class Whitelist extends Base
     
     public function check($patterns)
     {
-        return ($this->whitelist() == false);
+        return ($this->whitelist() === false);
     }
 }
