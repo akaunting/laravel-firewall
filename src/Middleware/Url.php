@@ -2,6 +2,7 @@
 
 namespace Akaunting\Firewall\Middleware;
 
+use Akaunting\Firewall\Events\AttackDetected;
 use Closure;
 
 class Url extends Base
@@ -28,6 +29,14 @@ class Url extends Base
     
     public function check($patterns)
     {
-        return in_array($this->request->url(), config('firewall.' . $this->middleware . '.inspections'));
+        $protected = in_array($this->request->url(), config('firewall.middleware.' . $this->middleware . '.inspections'));
+
+        if ($protected) {
+            $log = $this->log();
+
+            event(new AttackDetected($log));
+        }
+
+        return $protected;
     }
 }

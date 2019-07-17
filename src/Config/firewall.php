@@ -6,7 +6,7 @@ return [
 
     'whitelist' => [],
 
-    'all_middlewares' => [
+    'all_middleware' => [
         'firewall.ip',
         'firewall.lfi',
         'firewall.php',
@@ -16,86 +16,90 @@ return [
         'firewall.xss',
     ],
 
-    'ip' => [
-        'requests' => ['all'],
-    ],
+    'middleware' => [
 
-    'lfi' => [
-        'requests' => ['get', 'delete'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+        'ip' => [
+            'requests' => ['all'],
         ],
-    ],
 
-    'php' => [
-        'requests' => ['get', 'post', 'delete'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+        'lfi' => [
+            'requests' => ['get', 'delete'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
         ],
-    ],
 
-    'rfi' => [
-        'requests' => ['get', 'post', 'delete'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+        'php' => [
+            'requests' => ['get', 'post', 'delete'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
         ],
-        
-        'exceptions' => [],
-    ],
 
-    'session' => [
-        'requests' => ['get', 'post', 'delete'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+        'rfi' => [
+            'requests' => ['get', 'post', 'delete'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
+
+            'exceptions' => [],
         ],
-    ],
 
-    'sqli' => [
-        'requests' => ['get', 'delete'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+        'session' => [
+            'requests' => ['get', 'post', 'delete'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
         ],
-    ],
 
-    'url' => [
-        'requests' => ['all'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 1 * 60, // 1 minute
-            'period' => 30 * 60, // 30 minutes
+        'sqli' => [
+            'requests' => ['get', 'delete'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
         ],
-        
-        'inspections' => [], // i.e. 'admin'
-    ],
 
-    'whitelist' => [
-        'requests' => ['all'],
-    ],
+        'url' => [
+            'requests' => ['all'],
 
-    'xss' => [
-        'requests' => ['post', 'put', 'patch'],
-        
-        'auto_block' => [
-            'attempts' => 3,
-            'frequency' => 5 * 60, // 5 minutes
-            'period' => 30 * 60, // 30 minutes
+            'auto_block' => [
+                'attempts' => 5,
+                'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
+            ],
+
+            'inspections' => [], // i.e. 'admin'
         ],
+
+        'whitelist' => [
+            'requests' => ['all'],
+        ],
+
+        'xss' => [
+            'requests' => ['post', 'put', 'patch'],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
     ],
 
     'models' => [

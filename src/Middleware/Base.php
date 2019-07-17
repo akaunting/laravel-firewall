@@ -38,7 +38,7 @@ abstract class Base
         $this->request = $request;
         $this->input = $request->input();
         $this->middleware = strtolower((new \ReflectionClass($this))->getShortName());
-        $this->user_id = auth()->user()->id;
+        $this->user_id = auth()->id();
     }
     
     public function enabled()
@@ -53,7 +53,7 @@ abstract class Base
     
     public function method()
     {
-        $requests = config('firewall.' . $this->middleware . '.requests');
+        $requests = config('firewall.middleware.' . $this->middleware . '.requests');
 
         if (in_array('all', $requests)) {
             return true;

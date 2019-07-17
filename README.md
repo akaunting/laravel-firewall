@@ -49,7 +49,7 @@ You can change the firewall settings of your app from `config/firewall.php` file
 
 ## Usage
 
-Middlewares are already defined so should just add them to routes. The `firewall.all` middleware applies all the middlewares available in the `all_middlewares` array of config file. 
+Middlewares are already defined so should just add them to routes. The `firewall.all` middleware applies all the middlewares available in the `all_middleware` array of config file. 
 
 ```php
 Route::group(['middleware' => 'firewall.all'], function () {

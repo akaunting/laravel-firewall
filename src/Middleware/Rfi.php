@@ -71,7 +71,7 @@ class Rfi extends Base
     
     protected function applyExceptions($string)
     {
-        $exceptions = config('firewall.' . $this->middleware . '.exceptions');
+        $exceptions = config('firewall.middleware.' . $this->middleware . '.exceptions');
 
         $domain = $this->request->getHost();
 

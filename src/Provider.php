@@ -24,7 +24,7 @@ class Provider extends ServiceProvider
             __DIR__ . '/Migrations/2019_07_15_000000_create_firewall_logs_table.php'    => database_path('migrations/2019_07_15_000000_create_firewall_logs_table.php'),
         ], 'firewall');
 
-        $router->middlewareGroup('firewall.all', config('firewall.all_middlewares'));
+        $router->middlewareGroup('firewall.all', config('firewall.all_middleware'));
         $router->aliasMiddleware('firewall.ip', 'Akaunting\Firewall\Middleware\Ip');
         $router->aliasMiddleware('firewall.lfi', 'Akaunting\Firewall\Middleware\Lfi');
         $router->aliasMiddleware('firewall.php', 'Akaunting\Firewall\Middleware\Php');
