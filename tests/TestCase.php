@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 
     public $request;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
