@@ -14,8 +14,8 @@ class RfiTest extends TestCase
 
     public function testShouldFail()
     {
-        $this->request->request->set('foo', 'https://attacker.example.com/evil.php');
+        $this->request->query->set('foo', 'https://attacker.example.com/evil.php');
 
-        $this->assertNotEquals('next', (new Rfi())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('403', (new Rfi())->handle($this->request, $this->getNextClosure())->getStatusCode());
     }
 }

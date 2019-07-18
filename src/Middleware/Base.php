@@ -38,7 +38,7 @@ abstract class Base
         $this->request = $request;
         $this->input = $request->input();
         $this->middleware = strtolower((new \ReflectionClass($this))->getShortName());
-        $this->user_id = auth()->id();
+        $this->user_id = auth()->id() ?: 0;
     }
     
     public function enabled()
@@ -135,7 +135,7 @@ abstract class Base
             'middleware' => $this->middleware,
             'user_id' => $this->user_id,
             'url' => $this->request->fullUrl(),
-            'referrer' => $this->request->server('HTTP_REFERER'),
+            'referrer' => $this->request->server('HTTP_REFERER') ?: 'NULL',
             'request' => urldecode(http_build_query($this->input)),
         ]);
 

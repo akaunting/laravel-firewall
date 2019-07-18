@@ -2,12 +2,13 @@
 
 namespace Akaunting\Firewall\Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, WithoutMiddleware;
+    use CreatesApplication, DatabaseMigrations, WithoutMiddleware;
 
     public $request;
 

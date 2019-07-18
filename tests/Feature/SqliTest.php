@@ -14,8 +14,8 @@ class SqliTest extends TestCase
 
     public function testShouldFail()
     {
-        $this->request->request->set('foo', '-1+union+select+1,2,3,4,5,6,7,8,9,(SELECT+password+FROM+users+WHERE+ID=1)');
+        $this->request->query->set('foo', '-1+union+select+1,2,3,4,5,6,7,8,9,(SELECT+password+FROM+users+WHERE+ID=1)');
 
-        $this->assertNotEquals('next', (new Sqli())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('403', (new Sqli())->handle($this->request, $this->getNextClosure())->getStatusCode());
     }
 }

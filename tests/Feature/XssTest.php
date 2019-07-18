@@ -14,8 +14,8 @@ class XssTest extends TestCase
 
     public function testShouldFail()
     {
-        $this->request->request->set('foo', '<script>alert(123)</script>');
+        $this->request->query->set('foo', '<script>alert(123)</script>');
 
-        $this->assertNotEquals('next', (new Xss())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('403', (new Xss())->handle($this->request, $this->getNextClosure())->getStatusCode());
     }
 }

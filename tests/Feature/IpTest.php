@@ -17,6 +17,6 @@ class IpTest extends TestCase
     {
         Model::create(['ip' => '127.0.0.1', 'log_id' => 1]);
 
-        $this->assertNotEquals('next', (new Ip())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('403', (new Ip())->handle($this->request, $this->getNextClosure())->getStatusCode());
     }
 }

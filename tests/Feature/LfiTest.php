@@ -14,8 +14,8 @@ class LfiTest extends TestCase
 
     public function testShouldFail()
     {
-        $this->request->request->set('foo', '../../../../etc/passwd');
+        $this->request->query->set('foo', '../../../../etc/passwd');
 
-        $this->assertNotEquals('next', (new Lfi())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('403', (new Lfi())->handle($this->request, $this->getNextClosure())->getStatusCode());
     }
 }
