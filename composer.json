@@ -22,6 +22,10 @@
         "laravel/framework": ">=5.4",
         "guzzlehttp/guzzle": "^6.0"
     },
+    "require-dev": {
+        "fzaninotto/faker": "1.8.*",
+        "phpunit/phpunit": "5.7.*"
+    },
     "autoload": {
         "psr-4": {
             "Akaunting\\Firewall\\": "src",
