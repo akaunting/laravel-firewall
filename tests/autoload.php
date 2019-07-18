@@ -12,4 +12,5 @@
 |
 */
 
-require dirname(dirname(dirname(dirname(__FILE__)))) . '/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
+//require dirname(dirname(dirname(dirname(__FILE__)))) . '/autoload.php';
