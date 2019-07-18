@@ -19,21 +19,13 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "illuminate/support": ">=5.4 <6.0",
+        "laravel/framework": ">=5.4",
         "guzzlehttp/guzzle": "^6.0"
-    },
-    "require-dev": {
-        "fzaninotto/faker": "1.8.*",
-        "phpunit/phpunit": "5.7.*"
     },
     "autoload": {
         "psr-4": {
-            "Akaunting\\Firewall\\": "./src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Akaunting\\Firewall\\Tests\\": "./tests"
+            "Akaunting\\Firewall\\": "src",
+            "Akaunting\\Firewall\\Tests\\": "tests"
         }
     },
     "extra": {
