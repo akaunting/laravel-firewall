@@ -68,12 +68,11 @@ abstract class Base
 
     public function url()
     {
-        if (!config('firewall.middleware.' . $this->middleware . '.urls')) {
+        if (!$urls = config('firewall.middleware.' . $this->middleware . '.urls')) {
             return false;
         }
 
-        $except = config('firewall.middleware.' . $this->middleware . '.urls.except');
-        foreach ($except as $ex) {
+        foreach ($urls['except'] as $ex) {
             if (!$this->request->is($ex)) {
                 continue;
             }
@@ -81,8 +80,7 @@ abstract class Base
             return true;
         }
 
-        $only = config('firewall.middleware.' . $this->middleware . '.urls.only');
-        foreach ($only as $on) {
+        foreach ($urls['only'] as $on) {
             if ($this->request->is($on)) {
                 continue;
             }
