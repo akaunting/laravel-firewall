@@ -10,6 +10,7 @@ return [
         'firewall.ip',
         'firewall.lfi',
         'firewall.php',
+        'firewall.referrer',
         'firewall.rfi',
         'firewall.session',
         'firewall.sqli',
@@ -59,6 +60,23 @@ return [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        'referrer' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'blocked' => [],
 
             'auto_block' => [
                 'attempts' => 3,

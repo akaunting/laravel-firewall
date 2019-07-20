@@ -73,15 +73,14 @@ Route::group(['middleware' => 'firewall.url'], function () {
 });
 ```
 
-You may also define routes for each middleware in `config/firewall.php` and apply that middleware or `firewall.all` at the top of all routes.
-
-Available middlewares:
+Available middlewares applicable to routes:
 
 ```php
 firewall.all
 firewall.ip
 firewall.lfi
 firewall.php
+firewall.referrer
 firewall.rfi
 firewall.session
 firewall.sqli
@@ -89,6 +88,8 @@ firewall.url
 firewall.whitelist
 firewall.xss
 ```
+
+You may also define `routes` for each middleware in `config/firewall.php` and apply that middleware or `firewall.all` at the top of all routes.
 
 ## Changelog
 

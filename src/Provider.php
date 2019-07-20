@@ -72,6 +72,7 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('firewall.ip', 'Akaunting\Firewall\Middleware\Ip');
         $router->aliasMiddleware('firewall.lfi', 'Akaunting\Firewall\Middleware\Lfi');
         $router->aliasMiddleware('firewall.php', 'Akaunting\Firewall\Middleware\Php');
+        $router->aliasMiddleware('firewall.referrer', 'Akaunting\Firewall\Middleware\Referrer');
         $router->aliasMiddleware('firewall.rfi', 'Akaunting\Firewall\Middleware\Rfi');
         $router->aliasMiddleware('firewall.session', 'Akaunting\Firewall\Middleware\Session');
         $router->aliasMiddleware('firewall.sqli', 'Akaunting\Firewall\Middleware\Sqli');
