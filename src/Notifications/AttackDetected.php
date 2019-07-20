@@ -59,11 +59,17 @@ class AttackDetected extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $domain = request()->getHttpHost();
-        $subject = str_replace(':domain', $domain, config('firewall.notifications.mail.subject'));
-        $message = str_replace(':domain', $domain, config('firewall.notifications.mail.message'));
-        $message = str_replace(':middleware', ucfirst($this->log->middleware), $message);
-        $message = str_replace(':ip', $this->log->ip, $message);
-        $message = str_replace(':url', $this->log->url, $message);
+
+        $subject = trans('firewall::notifications.mail.subject', [
+            'domain' => $domain
+        ]);
+
+        $message = trans('firewall::notifications.mail.message', [
+            'domain' => $domain,
+            'middleware' => ucfirst($this->log->middleware),
+            'ip' => $this->log->ip,
+            'url' => $this->log->url,
+        ]);
 
         return (new MailMessage)
             ->from(config('firewall.notifications.mail.from'), config('firewall.notifications.mail.name'))
@@ -79,8 +85,9 @@ class AttackDetected extends Notification implements ShouldQueue
      */
     public function toSlack($notifiable)
     {
-        $domain = request()->getHttpHost();
-        $message = str_replace(':domain', $domain, config('firewall.notifications.slack.message'));
+        $message = trans('firewall::notifications.slack.message', [
+            'domain' => request()->getHttpHost(),
+        ]);
 
         return (new SlackMessage)
             ->error()

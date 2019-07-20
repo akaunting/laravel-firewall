@@ -29,7 +29,7 @@ Akaunting\Firewall\Provider::class,
 
 ### 3. Publish
 
-Publish config file
+Publish configuration, language, and migrations
 
 ```bash
 php artisan vendor:publish --tag=firewall

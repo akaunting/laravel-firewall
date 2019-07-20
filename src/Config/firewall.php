@@ -152,7 +152,6 @@ return [
             'view' => null,
             'redirect' => null,
             'abort' => false,
-            'message' => 'Access Denied',
             'code' => 403,
         ],
 
@@ -165,8 +164,6 @@ return [
             'name' => 'Laravel Firewall',
             'from' => 'firewall@mydomain.com',
             'to' => ['admin@mydomain.com'],
-            'subject' => ':fire: Possible attack on :domain',
-            'message' => 'A possible :middleware attack on :domain has been detected from :ip address. The following URL has been affected:<br><br>:url<br><br>Regards',
         ],
 
         'slack' => [
@@ -174,7 +171,6 @@ return [
             'from' => 'Laravel Firewall',
             'to' => '#my-channel',
             'emoji' => ':fire:',
-            'message' => 'A possible attack on :domain has been detected.',
         ],
 
     ],

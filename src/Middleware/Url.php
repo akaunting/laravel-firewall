@@ -29,7 +29,21 @@ class Url extends Base
     
     public function check($patterns)
     {
-        $protected = in_array($this->request->url(), config('firewall.middleware.' . $this->middleware . '.inspections'));
+        $protected = false;
+
+        if (!$inspections = config('firewall.middleware.' . $this->middleware . '.inspections')) {
+            return $protected;
+        }
+
+        foreach ($inspections as $inspection) {
+            if (!$this->request->is($inspection)) {
+                continue;
+            }
+
+            $protected = true;
+
+            break;
+        }
 
         if ($protected) {
             $log = $this->log();

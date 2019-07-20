@@ -183,16 +183,16 @@ abstract class Base
         
         if ($redirect = $response['redirect']) {
             if (($this->middleware == 'ip') && $this->request->is($redirect)) {
-                abort($response['code'], $response['message']);
+                abort($response['code'], trans('firewall::responses.block.message'));
             }
 
             return Redirect::to($redirect);
         }
 
         if ($response['abort']) {
-            abort($response['code'], $response['message']);
+            abort($response['code'], trans('firewall::responses.block.message'));
         }
         
-        return Response::make($response['message'], $response['code']);
+        return Response::make(trans('firewall::responses.block.message'), $response['code']);
     }
 }
