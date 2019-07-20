@@ -19,18 +19,18 @@ return [
     'middleware' => [
 
         'ip' => [
-            'requests' => ['all'],
+            'methods' => ['all'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
         ],
 
         'lfi' => [
-            'requests' => ['get', 'delete'],
+            'methods' => ['get', 'delete'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
@@ -43,9 +43,9 @@ return [
         ],
 
         'php' => [
-            'requests' => ['get', 'post', 'delete'],
+            'methods' => ['get', 'post', 'delete'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
@@ -58,9 +58,9 @@ return [
         ],
 
         'rfi' => [
-            'requests' => ['get', 'post', 'delete'],
+            'methods' => ['get', 'post', 'delete'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
@@ -75,9 +75,9 @@ return [
         ],
 
         'session' => [
-            'requests' => ['get', 'post', 'delete'],
+            'methods' => ['get', 'post', 'delete'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
@@ -90,9 +90,9 @@ return [
         ],
 
         'sqli' => [
-            'requests' => ['get', 'delete'],
+            'methods' => ['get', 'delete'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
@@ -105,30 +105,30 @@ return [
         ],
 
         'url' => [
-            'requests' => ['all'],
+            'methods' => ['all'],
+
+            'inspections' => [], // i.e. 'admin'
 
             'auto_block' => [
                 'attempts' => 5,
                 'frequency' => 1 * 60, // 1 minute
                 'period' => 30 * 60, // 30 minutes
             ],
-
-            'inspections' => [], // i.e. 'admin'
         ],
 
         'whitelist' => [
-            'requests' => ['all'],
+            'methods' => ['all'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
         ],
 
         'xss' => [
-            'requests' => ['post', 'put', 'patch'],
+            'methods' => ['post', 'put', 'patch'],
 
-            'urls' => [
+            'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],

@@ -18,19 +18,19 @@ abstract class Base
     {
         $this->prepare($request);
         
-        if (!$this->enabled()) {
+        if (!$this->isEnabled()) {
             return true;
         }
         
-        if ($this->whitelist()) {
+        if ($this->isWhitelist()) {
             return true;
         }
         
-        if (!$this->method()) {
+        if (!$this->isMethod()) {
             return true;
         }
 
-        if ($this->url()) {
+        if ($this->isRoute()) {
             return true;
         }
     
@@ -45,19 +45,19 @@ abstract class Base
         $this->user_id = auth()->id() ?: 0;
     }
     
-    public function enabled()
+    public function isEnabled()
     {
         return config('firewall.enabled');
     }
     
-    public function whitelist()
+    public function isWhitelist()
     {
         return in_array($this->ip(), config('firewall.whitelist'));
     }
     
-    public function method()
+    public function isMethod()
     {
-        $requests = config('firewall.middleware.' . $this->middleware . '.requests');
+        $requests = config('firewall.middleware.' . $this->middleware . '.methods');
 
         if (in_array('all', $requests)) {
             return true;
@@ -66,9 +66,9 @@ abstract class Base
         return in_array(strtolower($this->request->method()), $requests);
     }
 
-    public function url()
+    public function isRoute()
     {
-        if (!$urls = config('firewall.middleware.' . $this->middleware . '.urls')) {
+        if (!$urls = config('firewall.middleware.' . $this->middleware . '.routes')) {
             return false;
         }
 
