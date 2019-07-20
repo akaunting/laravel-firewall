@@ -8,12 +8,12 @@ use Akaunting\Firewall\Tests\TestCase;
 
 class IpTest extends TestCase
 {
-    public function testShouldPass()
+    public function testShouldAllow()
     {
         $this->assertEquals('next', (new Ip())->handle($this->app->request, $this->getNextClosure()));
     }
 
-    public function testShouldFail()
+    public function testShouldBlock()
     {
         Model::create(['ip' => '127.0.0.1', 'log_id' => 1]);
 

@@ -7,12 +7,12 @@ use Akaunting\Firewall\Tests\TestCase;
 
 class LfiTest extends TestCase
 {
-    public function testShouldPass()
+    public function testShouldAllow()
     {
         $this->assertEquals('next', (new Lfi())->handle($this->app->request, $this->getNextClosure()));
     }
 
-    public function testShouldFail()
+    public function testShouldBlock()
     {
         $this->app->request->query->set('foo', '../../../../etc/passwd');
 
