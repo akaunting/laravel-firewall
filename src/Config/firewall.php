@@ -20,10 +20,20 @@ return [
 
         'ip' => [
             'requests' => ['all'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
         ],
 
         'lfi' => [
             'requests' => ['get', 'delete'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
 
             'auto_block' => [
                 'attempts' => 3,
@@ -35,6 +45,11 @@ return [
         'php' => [
             'requests' => ['get', 'post', 'delete'],
 
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
@@ -44,6 +59,11 @@ return [
 
         'rfi' => [
             'requests' => ['get', 'post', 'delete'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
 
             'auto_block' => [
                 'attempts' => 3,
@@ -57,6 +77,11 @@ return [
         'session' => [
             'requests' => ['get', 'post', 'delete'],
 
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
@@ -66,6 +91,11 @@ return [
 
         'sqli' => [
             'requests' => ['get', 'delete'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
 
             'auto_block' => [
                 'attempts' => 3,
@@ -88,10 +118,20 @@ return [
 
         'whitelist' => [
             'requests' => ['all'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
         ],
 
         'xss' => [
             'requests' => ['post', 'put', 'patch'],
+
+            'urls' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
 
             'auto_block' => [
                 'attempts' => 3,

@@ -29,6 +29,10 @@ abstract class Base
         if (!$this->method()) {
             return true;
         }
+
+        if ($this->url()) {
+            return true;
+        }
     
         return false;
     }
@@ -60,6 +64,33 @@ abstract class Base
         }
     
         return in_array(strtolower($this->request->method()), $requests);
+    }
+
+    public function url()
+    {
+        if (!config('firewall.middleware.' . $this->middleware . '.urls')) {
+            return false;
+        }
+
+        $except = config('firewall.middleware.' . $this->middleware . '.urls.except');
+        foreach ($except as $ex) {
+            if (!$this->request->is($ex)) {
+                continue;
+            }
+
+            return true;
+        }
+
+        $only = config('firewall.middleware.' . $this->middleware . '.urls.only');
+        foreach ($only as $on) {
+            if ($this->request->is($on)) {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
     
     public function ip()
