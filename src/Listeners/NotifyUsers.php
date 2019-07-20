@@ -17,6 +17,11 @@ class NotifyUsers
     public function handle(Event $event)
     {
         $model = config('firewall.models.user');
+
+        if (!class_exists($model)) {
+            return;
+        }
+
         $emails = config('firewall.notifications.mail.to');
 
         foreach ($emails as $email) {

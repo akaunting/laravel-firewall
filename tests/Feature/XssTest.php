@@ -9,13 +9,13 @@ class XssTest extends TestCase
 {
     public function testShouldPass()
     {
-        $this->assertEquals('next', (new Xss())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('next', (new Xss())->handle($this->app->request, $this->getNextClosure()));
     }
 
     public function testShouldFail()
     {
-        $this->request->query->set('foo', '<script>alert(123)</script>');
+        $this->app->request->query->set('foo', '<script>alert(123)</script>');
 
-        $this->assertEquals('403', (new Xss())->handle($this->request, $this->getNextClosure())->getStatusCode());
+        $this->assertEquals('403', (new Xss())->handle($this->app->request, $this->getNextClosure())->getStatusCode());
     }
 }

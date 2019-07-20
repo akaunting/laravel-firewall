@@ -37,7 +37,17 @@ class AttackDetected extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail', 'slack'];
+        $channels = [];
+
+        foreach (config('firewall.notifications') as $channel => $settings) {
+            if (!$settings['enabled']) {
+                continue;
+            }
+
+            $channels[] = $channel;
+        }
+
+        return $channels;
     }
 
     /**

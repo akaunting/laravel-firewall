@@ -9,13 +9,13 @@ class LfiTest extends TestCase
 {
     public function testShouldPass()
     {
-        $this->assertEquals('next', (new Lfi())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('next', (new Lfi())->handle($this->app->request, $this->getNextClosure()));
     }
 
     public function testShouldFail()
     {
-        $this->request->query->set('foo', '../../../../etc/passwd');
+        $this->app->request->query->set('foo', '../../../../etc/passwd');
 
-        $this->assertEquals('403', (new Lfi())->handle($this->request, $this->getNextClosure())->getStatusCode());
+        $this->assertEquals('403', (new Lfi())->handle($this->app->request, $this->getNextClosure())->getStatusCode());
     }
 }

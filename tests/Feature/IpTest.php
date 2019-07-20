@@ -10,13 +10,13 @@ class IpTest extends TestCase
 {
     public function testShouldPass()
     {
-        $this->assertEquals('next', (new Ip())->handle($this->request, $this->getNextClosure()));
+        $this->assertEquals('next', (new Ip())->handle($this->app->request, $this->getNextClosure()));
     }
 
     public function testShouldFail()
     {
         Model::create(['ip' => '127.0.0.1', 'log_id' => 1]);
 
-        $this->assertEquals('403', (new Ip())->handle($this->request, $this->getNextClosure())->getStatusCode());
+        $this->assertEquals('403', (new Ip())->handle($this->app->request, $this->getNextClosure())->getStatusCode());
     }
 }
