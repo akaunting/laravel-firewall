@@ -42,6 +42,16 @@ return [
             ],
         ],
 
+        'login' => [
+            'enabled' => true,
+
+            'auto_block' => [
+                'attempts' => 5,
+                'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
         'php' => [
             'methods' => ['get', 'post', 'delete'],
 

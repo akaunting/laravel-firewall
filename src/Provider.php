@@ -4,7 +4,9 @@ namespace Akaunting\Firewall;
 
 use Akaunting\Firewall\Events\AttackDetected;
 use Akaunting\Firewall\Listeners\BlockIp;
+use Akaunting\Firewall\Listeners\CheckLogin;
 use Akaunting\Firewall\Listeners\NotifyUsers;
+use Illuminate\Auth\Events\Failed as LoginFailed;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,9 +28,9 @@ class Provider extends ServiceProvider
             __DIR__ . '/Resources/lang'                                                 => resource_path('lang/vendor/firewall'),
         ], 'firewall');
 
-        $this->registerTranslations();
         $this->registerMiddleware($router);
         $this->registerListeners();
+        $this->registerTranslations();
     }
 
     /**
@@ -87,5 +89,6 @@ class Provider extends ServiceProvider
     {
         $this->app['events']->listen(AttackDetected::class, BlockIp::class);
         $this->app['events']->listen(AttackDetected::class, NotifyUsers::class);
+        $this->app['events']->listen(LoginFailed::class, CheckLogin::class);
     }
 }

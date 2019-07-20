@@ -39,10 +39,11 @@ abstract class TestCase extends BaseTestCase
     protected function setUpConfig()
     {
         config(['firewall.notifications.mail.enabled' => false]);
-        config(['firewall.middleware.lfi.requests' => ['all']]);
-        config(['firewall.middleware.rfi.requests' => ['all']]);
-        config(['firewall.middleware.sqli.requests' => ['all']]);
-        config(['firewall.middleware.xss.requests' => ['all']]);
+        config(['firewall.middleware.ip.methods' => ['all']]);
+        config(['firewall.middleware.lfi.methods' => ['all']]);
+        config(['firewall.middleware.rfi.methods' => ['all']]);
+        config(['firewall.middleware.sqli.methods' => ['all']]);
+        config(['firewall.middleware.xss.methods' => ['all']]);
     }
 
     protected function setUpDatabase()

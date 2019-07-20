@@ -57,22 +57,24 @@ abstract class Base
     
     public function isMethod()
     {
-        $requests = config('firewall.middleware.' . $this->middleware . '.methods');
+        if (!$methods = config('firewall.middleware.' . $this->middleware . '.methods')) {
+            return false;
+        }
 
-        if (in_array('all', $requests)) {
+        if (in_array('all', $methods)) {
             return true;
         }
     
-        return in_array(strtolower($this->request->method()), $requests);
+        return in_array(strtolower($this->request->method()), $methods);
     }
 
     public function isRoute()
     {
-        if (!$urls = config('firewall.middleware.' . $this->middleware . '.routes')) {
+        if (!$routes = config('firewall.middleware.' . $this->middleware . '.routes')) {
             return false;
         }
 
-        foreach ($urls['except'] as $ex) {
+        foreach ($routes['except'] as $ex) {
             if (!$this->request->is($ex)) {
                 continue;
             }
@@ -80,7 +82,7 @@ abstract class Base
             return true;
         }
 
-        foreach ($urls['only'] as $on) {
+        foreach ($routes['only'] as $on) {
             if ($this->request->is($on)) {
                 continue;
             }
