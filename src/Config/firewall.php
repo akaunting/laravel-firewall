@@ -109,11 +109,11 @@ return [
     'responses' => [
 
         'block' => [
-            'message' => 'Access Denied',
-            'code' => 403,
             'view' => null,
             'redirect' => null,
             'abort' => false,
+            'message' => 'Access Denied',
+            'code' => 403,
         ],
 
     ],

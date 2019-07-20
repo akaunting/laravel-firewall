@@ -145,19 +145,23 @@ abstract class Base
     public function respond($response, $data = [])
     {
         if ($response['code'] == 200) {
-            return;
+            return '';
         }
-        
-        if ($response['abort']) {
-            abort($response['code'], $response['message']);
+
+        if ($view = $response['view']) {
+            return Response::view($view, $data);
         }
         
         if ($redirect = $response['redirect']) {
+            if (($this->middleware == 'ip') && $this->request->is($redirect)) {
+                abort($response['code'], $response['message']);
+            }
+
             return Redirect::to($redirect);
         }
-        
-        if ($view = $response['view']) {
-            return Response::view($view, $data);
+
+        if ($response['abort']) {
+            abort($response['code'], $response['message']);
         }
         
         return Response::make($response['message'], $response['code']);
