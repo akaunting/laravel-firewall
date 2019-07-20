@@ -8,6 +8,7 @@ return [
 
     'all_middleware' => [
         'firewall.ip',
+        'firewall.agent',
         'firewall.lfi',
         'firewall.php',
         'firewall.referrer',
@@ -26,6 +27,44 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+        ],
+
+        'agent' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            // https://github.com/jenssegers/agent
+            'browsers' => [
+                'allow' => [], // i.e. 'Chrome', 'Firefox'
+                'block' => [], // i.e. 'IE'
+            ],
+
+            'platforms' => [
+                'allow' => [], // i.e. 'Ubuntu', 'Windows'
+                'block' => [], // i.e. 'OS X'
+            ],
+
+            'devices' => [
+                'allow' => [], // i.e. 'Desktop', 'Mobile'
+                'block' => [], // i.e. 'Tablet'
+            ],
+
+            'properties' => [
+                'allow' => [], // i.e. 'Gecko', 'Version/5.1.7'
+                'block' => [], // i.e. 'AppleWebKit'
+            ],
+
+            'allow_robots' => true,
+
+            'auto_block' => [
+                'attempts' => 5,
+                'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
             ],
         ],
 
@@ -134,7 +173,7 @@ return [
         ],
 
         'swear' => [
-            'methods' => ['all'],
+            'methods' => ['post', 'put', 'patch'],
 
             'routes' => [
                 'only' => [], // i.e. 'contact'

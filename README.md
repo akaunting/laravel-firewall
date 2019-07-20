@@ -7,7 +7,7 @@
 [![Quality](https://scrutinizer-ci.com/g/akaunting/firewall/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/akaunting/firewall)
 [![License](https://poser.pugx.org/akaunting/firewall/license.svg)](LICENSE.md)
 
-This package intends to protect your Laravel app from different type of attacks such as XSS, SQLi, RFI, LFI, and a lot more. It will also block repeated attacks and send notification via email and/or slack when attack is detected. Furthermore, it will log failed logins and block the IP after a number of attempts.
+This package intends to protect your Laravel app from different type of attacks such as XSS, SQLi, RFI, LFI, User Agent, and a lot more. It will also block repeated attacks and send notification via email and/or slack when attack is detected. Furthermore, it will log failed logins and block the IP after a number of attempts.
 
 ## Getting Started
 
@@ -77,6 +77,8 @@ Available middlewares applicable to routes:
 
 ```php
 firewall.all
+
+firewall.agent
 firewall.ip
 firewall.lfi
 firewall.php
