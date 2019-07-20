@@ -84,6 +84,7 @@ firewall.referrer
 firewall.rfi
 firewall.session
 firewall.sqli
+firewall.swear
 firewall.url
 firewall.whitelist
 firewall.xss

@@ -14,6 +14,7 @@ return [
         'firewall.rfi',
         'firewall.session',
         'firewall.sqli',
+        'firewall.swear',
         'firewall.xss',
     ],
 
@@ -124,6 +125,23 @@ return [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
             ],
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        'swear' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'words' => [],
 
             'auto_block' => [
                 'attempts' => 3,
