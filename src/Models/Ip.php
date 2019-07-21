@@ -19,14 +19,20 @@ class Ip extends Model
     {
         return $this->belongsTo('Akaunting\Firewall\Models\Log');
     }
-    
+
     public function logs()
     {
         return $this->hasMany('Akaunting\Firewall\Models\Log', 'ip', 'ip');
     }
-    
-    public function scopeBlocked($query, $ip)
+
+    public function scopeBlocked($query, $ip = null)
     {
-        return $query->where('ip', $ip)->where('blocked', 1);
+        $q = $query->where('blocked', 1);
+
+        if ($ip) {
+            $q = $query->where('ip', $ip);
+        }
+
+        return $q;
     }
 }

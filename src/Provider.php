@@ -2,11 +2,13 @@
 
 namespace Akaunting\Firewall;
 
+use Akaunting\Firewall\Commands\UnblockIp;
 use Akaunting\Firewall\Events\AttackDetected;
 use Akaunting\Firewall\Listeners\BlockIp;
 use Akaunting\Firewall\Listeners\CheckLogin;
 use Akaunting\Firewall\Listeners\NotifyUsers;
 use Illuminate\Auth\Events\Failed as LoginFailed;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +33,7 @@ class Provider extends ServiceProvider
         $this->registerMiddleware($router);
         $this->registerListeners();
         $this->registerTranslations();
+        $this->registerCommands();
     }
 
     /**
@@ -43,22 +46,6 @@ class Provider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/Config/firewall.php', 'firewall');
 
         $this->app->register(\Jenssegers\Agent\AgentServiceProvider::class);
-    }
-
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $lang_path = resource_path('lang/vendor/firewall');
-
-        if (is_dir($lang_path)) {
-            $this->loadTranslationsFrom($lang_path, 'firewall');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', 'firewall');
-        }
     }
 
     /**
@@ -95,5 +82,30 @@ class Provider extends ServiceProvider
         $this->app['events']->listen(AttackDetected::class, BlockIp::class);
         $this->app['events']->listen(AttackDetected::class, NotifyUsers::class);
         $this->app['events']->listen(LoginFailed::class, CheckLogin::class);
+    }
+
+    /**
+     * Register translations.
+     *
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        $lang_path = resource_path('lang/vendor/firewall');
+
+        if (is_dir($lang_path)) {
+            $this->loadTranslationsFrom($lang_path, 'firewall');
+        } else {
+            $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', 'firewall');
+        }
+    }
+
+    public function registerCommands()
+    {
+        $this->commands(UnblockIp::class);
+
+        $this->app->booted(function () {
+            app(Schedule::class)->command('firewall:unblockip')->everyMinute();
+        });
     }
 }
