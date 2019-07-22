@@ -42,6 +42,7 @@ return [
     'all_middleware' => [
         'firewall.ip',
         'firewall.agent',
+        'firewall.geo',
         'firewall.lfi',
         'firewall.php',
         'firewall.referrer',
@@ -50,6 +51,7 @@ return [
         'firewall.sqli',
         'firewall.swear',
         'firewall.xss',
+        //'App\Http\Middleware\YourCustomRule',
     ],
 
     'middleware' => [
@@ -97,6 +99,44 @@ return [
             'auto_block' => [
                 'attempts' => 5,
                 'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        'geo' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'continents' => [
+                'allow' => [], // i.e. 'Africa'
+                'block' => [], // i.e. 'Europe'
+            ],
+
+            'regions' => [
+                'allow' => [], // i.e. 'California'
+                'block' => [], // i.e. 'Nevada'
+            ],
+
+            'countries' => [
+                'allow' => [], // i.e. 'Albania'
+                'block' => [], // i.e. 'Madagascar'
+            ],
+
+            'cities' => [
+                'allow' => [], // i.e. 'Istanbul'
+                'block' => [], // i.e. 'London'
+            ],
+
+            // ipapi, extremeiplookup, ipstack, ipdata, ipinfo
+            'service' => 'ipapi',
+
+            'auto_block' => [
+                'attempts' => 3,
+                'frequency' => 5 * 60, // 5 minutes
                 'period' => 30 * 60, // 30 minutes
             ],
         ],
