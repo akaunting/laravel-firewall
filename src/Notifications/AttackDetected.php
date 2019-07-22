@@ -95,13 +95,12 @@ class AttackDetected extends Notification implements ShouldQueue
             ->to(config('firewall.notifications.slack.to'))
             ->content($message)
             ->attachment(function ($attachment) {
-                $attachment->title($this->log->ip)
-                    ->fields([
-                        'IP' => $this->log->ip,
-                        'Type' => ucfirst($this->log->middleware),
-                        'User ID' => $this->log->user_id,
-                        'URL' => $this->log->url,
-                    ]);
+                $attachment->fields([
+                    'IP' => $this->log->ip,
+                    'Type' => ucfirst($this->log->middleware),
+                    'User ID' => $this->log->user_id,
+                    'URL' => $this->log->url,
+                ]);
             });
     }
 }
