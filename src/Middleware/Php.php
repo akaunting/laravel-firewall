@@ -2,43 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-use Closure;
-
 class Php extends Base
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        if ($this->skip($request)) {
-            return $next($request);
-        }
-
-        $patterns = [
-            'bzip2://',
-            'expect://',
-            'glob://',
-            'phar://',
-            'php://',
-            'ogg://',
-            'rar://',
-            'ssh2://',
-            'zip://',
-            'zlib://',
-        ];
-
-        if ($this->check($patterns)) {
-            return $this->respond(config('firewall.responses.block'));
-        }
-
-        return $next($request);
-    }
-    
     public function match($pattern, $input)
     {
         $result = false;

@@ -3,7 +3,6 @@
 namespace Akaunting\Firewall\Tests;
 
 use Akaunting\Firewall\Provider;
-use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -38,6 +37,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function setUpConfig()
     {
+        config(['firewall' => require __DIR__ . '/../src/Config/firewall.php']);
+
         config(['firewall.notifications.mail.enabled' => false]);
         config(['firewall.middleware.ip.methods' => ['all']]);
         config(['firewall.middleware.lfi.methods' => ['all']]);

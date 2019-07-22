@@ -3,32 +3,11 @@
 namespace Akaunting\Firewall\Middleware;
 
 use Akaunting\Firewall\Events\AttackDetected;
-use Closure;
 use Jenssegers\Agent\Agent as Parser;
 
 class Agent extends Base
 {
     protected $parser;
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        if ($this->skip($request)) {
-            return $next($request);
-        }
-
-        if ($this->check([])) {
-            return $this->respond(config('firewall.responses.block'));
-        }
-
-        return $next($request);
-    }
 
     public function check($patterns)
     {

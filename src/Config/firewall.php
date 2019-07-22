@@ -6,6 +6,39 @@ return [
 
     'whitelist' => [],
 
+    'models' => [
+        'user' => '\App\User',
+    ],
+
+    'responses' => [
+
+        'block' => [
+            'view' => null,
+            'redirect' => null,
+            'abort' => false,
+            'code' => 403,
+        ],
+
+    ],
+
+    'notifications' => [
+
+        'mail' => [
+            'enabled' => true,
+            'name' => 'Laravel Firewall',
+            'from' => 'firewall@mydomain.com',
+            'to' => ['admin@mydomain.com'],
+        ],
+
+        'slack' => [
+            'enabled' => false,
+            'from' => 'Laravel Firewall',
+            'to' => '#my-channel',
+            'emoji' => ':fire:',
+        ],
+
+    ],
+
     'all_middleware' => [
         'firewall.ip',
         'firewall.agent',
@@ -76,6 +109,10 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'patterns' => [
+                '#\.\/#is',
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
@@ -99,6 +136,19 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'patterns' => [
+                'bzip2://',
+                'expect://',
+                'glob://',
+                'phar://',
+                'php://',
+                'ogg://',
+                'rar://',
+                'ssh2://',
+                'zip://',
+                'zlib://',
             ],
 
             'auto_block' => [
@@ -133,6 +183,10 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'patterns' => [
+                '#(http|ftp){1,1}(s){0,1}://.*#i',
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
@@ -150,6 +204,11 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'patterns' => [
+                '@[\|:]O:\d{1,}:"[\w_][\w\d_]{0,}":\d{1,}:{@i',
+                '@[\|:]a:\d{1,}:{@i',
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
@@ -163,6 +222,11 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'patterns' => [
+                '#[\d\W](union select|union join|union distinct)[\d\W]#is',
+                '#[\d\W](union|union select|insert|from|where|concat|into|cast|truncate|select|delete|having)[\d\W]#is',
             ],
 
             'auto_block' => [
@@ -218,44 +282,15 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'patterns' => [
+                '#<[^>]*\w*\"?[^>]*>#is',
+            ],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
                 'period' => 30 * 60, // 30 minutes
             ],
-        ],
-
-    ],
-
-    'models' => [
-        'user' => '\App\User',
-    ],
-    
-    'responses' => [
-
-        'block' => [
-            'view' => null,
-            'redirect' => null,
-            'abort' => false,
-            'code' => 403,
-        ],
-
-    ],
-
-    'notifications' => [
-
-        'mail' => [
-            'enabled' => true,
-            'name' => 'Laravel Firewall',
-            'from' => 'firewall@mydomain.com',
-            'to' => ['admin@mydomain.com'],
-        ],
-
-        'slack' => [
-            'enabled' => false,
-            'from' => 'Laravel Firewall',
-            'to' => '#my-channel',
-            'emoji' => ':fire:',
         ],
 
     ],

@@ -2,34 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-use Closure;
-
 class Rfi extends Base
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        if ($this->skip($request)) {
-            return $next($request);
-        }
-
-        $patterns = [
-            '#(http|ftp){1,1}(s){0,1}://.*#i',
-        ];
-
-        if ($this->check($patterns)) {
-            return $this->respond(config('firewall.responses.block'));
-        }
-
-        return $next($request);
-    }
-    
     public function match($pattern, $input)
     {
         $result = false;

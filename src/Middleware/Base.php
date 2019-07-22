@@ -4,6 +4,7 @@ namespace Akaunting\Firewall\Middleware;
 
 use Akaunting\Firewall\Events\AttackDetected;
 use Akaunting\Firewall\Models\Log;
+use Closure;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
@@ -13,6 +14,26 @@ abstract class Base
     public $input = null;
     public $middleware = null;
     public $user_id = null;
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this->skip($request)) {
+            return $next($request);
+        }
+
+        if ($this->check($this->getPatterns())) {
+            return $this->respond(config('firewall.responses.block'));
+        }
+
+        return $next($request);
+    }
 
     public function skip($request)
     {
@@ -102,6 +123,11 @@ abstract class Base
         }
         
         return $ip;
+    }
+
+    public function getPatterns()
+    {
+        return config('firewall.middleware.' . $this->middleware . '.patterns', []);
     }
     
     public function check($patterns)

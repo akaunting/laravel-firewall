@@ -2,37 +2,20 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-use Closure;
-
 class Swear extends Base
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function getPatterns()
     {
-        if ($this->skip($request)) {
-            return $next($request);
-        }
+        $patterns = [];
 
         if (!$words = config('firewall.middleware.' . $this->middleware . '.words')) {
-            return $next($request);
+            return $patterns;
         }
 
         foreach ((array) $words as $word) {
-            $patterns = [
-                '#\b' . $word . '\b#i',
-            ];
-
-            if ($this->check($patterns)) {
-                return $this->respond(config('firewall.responses.block'));
-            }
+            $patterns[] = '#\b' . $word . '\b#i';
         }
 
-        return $next($request);
+        return $patterns;
     }
 }
