@@ -100,7 +100,7 @@ class Agent extends Base
             return false;
         }
 
-        if (!in_array((string) $this->parser->browser(), (array) $browsers['allow'])) {
+        if (!empty($browsers['allow']) && !in_array((string) $this->parser->browser(), (array) $browsers['allow'])) {
             return true;
         }
 
@@ -117,7 +117,7 @@ class Agent extends Base
             return false;
         }
 
-        if (!in_array((string) $this->parser->platform(), (array) $platforms['allow'])) {
+        if (!empty($platforms['allow']) && !in_array((string) $this->parser->platform(), (array) $platforms['allow'])) {
             return true;
         }
 
