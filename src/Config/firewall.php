@@ -227,13 +227,13 @@ return [
                 '#(http|ftp){1,1}(s){0,1}://.*#i',
             ],
 
+            'exceptions' => [],
+
             'auto_block' => [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
                 'period' => 30 * 60, // 30 minutes
             ],
-
-            'exceptions' => [],
         ],
 
         'session' => [

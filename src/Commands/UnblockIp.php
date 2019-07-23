@@ -37,12 +37,12 @@ class UnblockIp extends Command
      */
     public function handle()
     {
-        $now = Carbon::now();
+        $now = Carbon::now(config('app.timezone'));
 
         Ip::with('log')->blocked()->each(function ($ip) use ($now) {
             $period = config('firewall.middleware.' . $ip->log->middleware . '.auto_block.period');
 
-            if ($ip->created_at->addSeconds($period) < $now) {
+            if ($ip->created_at->addSeconds($period) > $now) {
                 return;
             }
 

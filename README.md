@@ -95,6 +95,10 @@ firewall.xss
 
 You may also define `routes` for each middleware in `config/firewall.php` and apply that middleware or `firewall.all` at the top of all routes.
 
+## Notifications
+
+Firewall will send a notification as soon as an attack has been detected. Emails entered in `notifications.email.to` config must be valid Laravel users in order to send notifications. Check out the Notifications documentation of Laravel for further information.
+
 ## Changelog
 
 Please see [Releases](../../releases) for more information what has changed recently.

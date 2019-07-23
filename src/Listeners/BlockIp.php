@@ -18,7 +18,7 @@ class BlockIp
      */
     public function handle(AttackDetected $event)
     {
-        $end = Carbon::now();
+        $end = Carbon::now(config('app.timezone'));
         $start = $end->copy()->subSeconds(config('firewall.middleware.' . $event->log->middleware . '.auto_block.frequency'));
 
         $count = Log::where('ip', $event->log->ip)->whereBetween('created_at', [$start, $end])->count();
