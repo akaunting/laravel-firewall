@@ -9,6 +9,8 @@
 
 This package intends to protect your Laravel app from different type of attacks such as XSS, SQLi, RFI, LFI, User Agent, and a lot more. It will also block repeated attacks and send notification via email and/or slack when attack is detected. Furthermore, it will log failed logins and block the IP after a number of attempts.
 
+Note: Some middleware classes (i.e. Xss) are empty as the `Base` class that they extend does all of the job, dynamically. In short, they all works ;)
+
 ## Getting Started
 
 ### 1. Install
