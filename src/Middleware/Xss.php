@@ -2,6 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Xss extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Xss extends Middleware
 {
 }

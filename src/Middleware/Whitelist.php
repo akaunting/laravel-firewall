@@ -2,7 +2,9 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Whitelist extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Whitelist extends Middleware
 {
     public function check($patterns)
     {

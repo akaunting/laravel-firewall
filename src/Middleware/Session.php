@@ -2,6 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Session extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Session extends Middleware
 {
 }

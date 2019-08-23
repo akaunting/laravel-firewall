@@ -2,9 +2,10 @@
 
 namespace Akaunting\Firewall\Middleware;
 
+use Akaunting\Firewall\Abstracts\Middleware;
 use Akaunting\Firewall\Events\AttackDetected;
 
-class Url extends Base
+class Url extends Middleware
 {
     public function check($patterns)
     {

@@ -2,9 +2,10 @@
 
 namespace Akaunting\Firewall\Middleware;
 
+use Akaunting\Firewall\Abstracts\Middleware;
 use Illuminate\Support\Str;
 
-class Geo extends Base
+class Geo extends Middleware
 {
     public function check($patterns)
     {

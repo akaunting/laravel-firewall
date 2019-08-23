@@ -1,6 +1,6 @@
 <?php
 
-namespace Akaunting\Firewall\Middleware;
+namespace Akaunting\Firewall\Abstracts;
 
 use Akaunting\Firewall\Events\AttackDetected;
 use Akaunting\Firewall\Models\Log;
@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
-abstract class Base
+abstract class Middleware
 {
     public $request = null;
     public $input = null;

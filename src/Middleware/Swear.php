@@ -2,7 +2,9 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Swear extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Swear extends Middleware
 {
     public function getPatterns()
     {

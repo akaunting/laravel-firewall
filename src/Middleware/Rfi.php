@@ -2,7 +2,9 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Rfi extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Rfi extends Middleware
 {
     public function match($pattern, $input)
     {

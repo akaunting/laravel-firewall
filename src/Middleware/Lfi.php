@@ -2,6 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Lfi extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Lfi extends Middleware
 {
 }

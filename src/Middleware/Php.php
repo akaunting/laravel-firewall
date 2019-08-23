@@ -2,7 +2,9 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Php extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Php extends Middleware
 {
     public function match($pattern, $input)
     {

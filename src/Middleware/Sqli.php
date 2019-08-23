@@ -2,6 +2,8 @@
 
 namespace Akaunting\Firewall\Middleware;
 
-class Sqli extends Base
+use Akaunting\Firewall\Abstracts\Middleware;
+
+class Sqli extends Middleware
 {
 }
