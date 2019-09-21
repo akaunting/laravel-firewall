@@ -107,7 +107,7 @@ Please see [Releases](../../releases) for more information what has changed rece
 
 ## Contributing
 
-Pull requests are more than welcome.
+Pull requests are more than welcome. You must follow the PSR coding standards.
 
 ## Security
 
