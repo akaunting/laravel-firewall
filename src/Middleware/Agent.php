@@ -36,10 +36,6 @@ class Agent extends Middleware
             $status = true;
         }
 
-        if (!$status && $this->isRobot()) {
-            $status = true;
-        }
-
         if ($status) {
             $log = $this->log();
 
@@ -166,19 +162,6 @@ class Agent extends Middleware
                 continue;
             }
 
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function isRobot()
-    {
-        if (config('firewall.middleware.' . $this->middleware . '.allow_robots')) {
-            return false;
-        }
-
-        if ($this->parser->isRobot()) {
             return true;
         }
 

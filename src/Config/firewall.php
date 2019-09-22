@@ -42,6 +42,7 @@ return [
     'all_middleware' => [
         'firewall.ip',
         'firewall.agent',
+        'firewall.bot',
         'firewall.geo',
         'firewall.lfi',
         'firewall.php',
@@ -94,7 +95,26 @@ return [
                 'block' => [], // i.e. 'AppleWebKit'
             ],
 
-            'allow_robots' => true,
+            'auto_block' => [
+                'attempts' => 5,
+                'frequency' => 1 * 60, // 1 minute
+                'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        'bot' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            // https://github.com/JayBizzle/Crawler-Detect/blob/master/raw/Crawlers.txt
+            'crawlers' => [
+                'allow' => [], // i.e. 'GoogleSites', 'GuzzleHttp'
+                'block' => [], // i.e. 'Holmes'
+            ],
 
             'auto_block' => [
                 'attempts' => 5,

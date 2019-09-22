@@ -81,6 +81,7 @@ Available middlewares applicable to routes:
 firewall.all
 
 firewall.agent
+firewall.bot
 firewall.geo
 firewall.ip
 firewall.lfi
