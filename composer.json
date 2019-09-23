@@ -6,7 +6,11 @@
       "firewall",
       "security",
       "waf",
-      "blacklist"
+      "blacklist",
+      "xss",
+      "sqli",
+      "rfi",
+      "lfi"
     ],
     "license": "MIT",
     "authors": [
