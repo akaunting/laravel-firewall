@@ -374,11 +374,19 @@ return [
 
             'inputs' => [
                 'only' => [], // i.e. 'first_name'
-                'except' => ['password', 'password_confirmation'], // i.e. 'password'
+                'except' => [], // i.e. 'password'
             ],
 
             'patterns' => [
-                '#<[^>]*\w*\"?[^>]*>#is',
+                // Evil starting attributes
+                '#(<[^>]+[\x00-\x20\"\'\/])(form|formaction|on\w*|style|xmlns|xlink:href)[^>]*>?#iUu',
+
+				// javascript:, livescript:, vbscript:, mocha: protocols
+				'!((java|live|vb)script|mocha|feed|data):(\w)*!iUu',
+                '#-moz-binding[\x00-\x20]*:#u',
+
+				// Unneeded tags
+				'#</*(applet|meta|xml|blink|link|style|script|embed|object|iframe|frame|frameset|ilayer|layer|bgsound|title|base)[^>]*>?#i'
             ],
 
             'auto_block' => [

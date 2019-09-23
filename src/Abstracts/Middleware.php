@@ -175,6 +175,8 @@ abstract class Middleware
         }
 
         if (!is_array($input)) {
+            $input = $this->prepareInput($input);
+
             return preg_match($pattern, $input);
         }
 
@@ -191,6 +193,8 @@ abstract class Middleware
                 continue;
             }
 
+            $value = $this->prepareInput($value);
+
             if (!$result = preg_match($pattern, $value)) {
                 continue;
             }
@@ -199,6 +203,11 @@ abstract class Middleware
         }
 
         return $result;
+    }
+
+    public function prepareInput($value)
+    {
+        return $value;
     }
 
     public function log()
