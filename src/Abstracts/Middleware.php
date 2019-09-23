@@ -68,7 +68,7 @@ abstract class Middleware
 
     public function isEnabled()
     {
-        return config('firewall.enabled');
+        return config('firewall.middleware.' . $this->middleware . '.enabled', config('firewall.enabled'));
     }
 
     public function isWhitelist()
