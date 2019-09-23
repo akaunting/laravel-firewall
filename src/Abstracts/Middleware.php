@@ -38,15 +38,15 @@ abstract class Middleware
     public function skip($request)
     {
         $this->prepare($request);
-        
+
         if (!$this->isEnabled()) {
             return true;
         }
-        
+
         if ($this->isWhitelist()) {
             return true;
         }
-        
+
         if (!$this->isMethod()) {
             return true;
         }
@@ -54,10 +54,10 @@ abstract class Middleware
         if ($this->isRoute()) {
             return true;
         }
-    
+
         return false;
     }
-    
+
     public function prepare($request)
     {
         $this->request = $request;
@@ -65,17 +65,17 @@ abstract class Middleware
         $this->middleware = strtolower((new \ReflectionClass($this))->getShortName());
         $this->user_id = auth()->id() ?: 0;
     }
-    
+
     public function isEnabled()
     {
         return config('firewall.enabled');
     }
-    
+
     public function isWhitelist()
     {
         return in_array($this->ip(), config('firewall.whitelist'));
     }
-    
+
     public function isMethod()
     {
         if (!$methods = config('firewall.middleware.' . $this->middleware . '.methods')) {
@@ -85,7 +85,7 @@ abstract class Middleware
         if (in_array('all', $methods)) {
             return true;
         }
-    
+
         return in_array(strtolower($this->request->method()), $methods);
     }
 
@@ -113,7 +113,20 @@ abstract class Middleware
 
         return false;
     }
-    
+
+    public function isInput($name)
+    {
+        if (!$inputs = config('firewall.middleware.' . $this->middleware . '.inputs')) {
+            return true;
+        }
+
+        if (!empty($inputs['only']) && !in_array((string) $name, (array) $inputs['only'])) {
+            return false;
+        }
+
+        return !in_array((string) $name, (array) $inputs['except']);
+    }
+
     public function ip()
     {
         if ($cf_ip = $this->request->header('CF_CONNECTING_IP')) {
@@ -121,7 +134,7 @@ abstract class Middleware
         } else {
             $ip = $this->request->ip();
         }
-        
+
         return $ip;
     }
 
@@ -129,7 +142,7 @@ abstract class Middleware
     {
         return config('firewall.middleware.' . $this->middleware . '.patterns', []);
     }
-    
+
     public function check($patterns)
     {
         $log = null;
@@ -149,10 +162,10 @@ abstract class Middleware
         if ($log) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     public function match($pattern, $input)
     {
         $result = false;
@@ -174,6 +187,10 @@ abstract class Middleware
                 break;
             }
 
+            if (!$this->isInput($key)) {
+                continue;
+            }
+
             if (!$result = preg_match($pattern, $value)) {
                 continue;
             }
@@ -183,7 +200,7 @@ abstract class Middleware
 
         return $result;
     }
-    
+
     public function log()
     {
         $log = Log::create([
@@ -198,7 +215,7 @@ abstract class Middleware
 
         return $log;
     }
-    
+
     public function respond($response, $data = [])
     {
         if ($response['code'] == 200) {
@@ -208,7 +225,7 @@ abstract class Middleware
         if ($view = $response['view']) {
             return Response::view($view, $data);
         }
-        
+
         if ($redirect = $response['redirect']) {
             if (($this->middleware == 'ip') && $this->request->is($redirect)) {
                 abort($response['code'], trans('firewall::responses.block.message'));
@@ -220,7 +237,7 @@ abstract class Middleware
         if ($response['abort']) {
             abort($response['code'], trans('firewall::responses.block.message'));
         }
-        
+
         return Response::make(trans('firewall::responses.block.message'), $response['code']);
     }
 }

@@ -169,6 +169,11 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
+            ],
+
             'patterns' => [
                 '#\.\/#is',
             ],
@@ -196,6 +201,11 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
             ],
 
             'patterns' => [
@@ -243,6 +253,11 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
+            ],
+
             'patterns' => [
                 '#(http|ftp){1,1}(s){0,1}://.*#i',
             ],
@@ -262,6 +277,11 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
             ],
 
             'patterns' => [
@@ -284,6 +304,11 @@ return [
                 'except' => [], // i.e. 'admin/*'
             ],
 
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
+            ],
+
             'patterns' => [
                 '#[\d\W](union select|union join|union distinct)[\d\W]#is',
                 '#[\d\W](union|union select|insert|from|where|concat|into|cast|truncate|select|delete|having)[\d\W]#is',
@@ -302,6 +327,11 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
             ],
 
             'words' => [],
@@ -340,6 +370,11 @@ return [
             'routes' => [
                 'only' => [], // i.e. 'contact'
                 'except' => [], // i.e. 'admin/*'
+            ],
+
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => ['password', 'password_confirmation'], // i.e. 'password'
             ],
 
             'patterns' => [

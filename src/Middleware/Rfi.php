@@ -31,6 +31,10 @@ class Rfi extends Middleware
                 break;
             }
 
+            if (!$this->isInput($key)) {
+                continue;
+            }
+
             if (!$result = preg_match($pattern, $this->applyExceptions($value))) {
                 continue;
             }

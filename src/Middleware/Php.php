@@ -27,6 +27,10 @@ class Php extends Middleware
                 break;
             }
 
+            if (!$this->isInput($key)) {
+                continue;
+            }
+
             if (!$result = (stripos($value, $pattern) === 0)) {
                 continue;
             }
