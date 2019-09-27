@@ -4,7 +4,7 @@ return [
 
     'enabled' => env('FIREWALL_ENABLED', true),
 
-    'whitelist' => [],
+    'whitelist' => [env('FIREWALL_WHITELIST', '')],
 
     'models' => [
         'user' => '\App\User',
@@ -13,10 +13,10 @@ return [
     'responses' => [
 
         'block' => [
-            'view' => null,
-            'redirect' => null,
-            'abort' => false,
-            'code' => 403,
+            'view' => env('FIREWALL_BLOCK_VIEW', null),
+            'redirect' => env('FIREWALL_BLOCK_REDIRECT', null),
+            'abort' => env('FIREWALL_BLOCK_ABORT', false),
+            'code' => env('FIREWALL_BLOCK_CODE', 403),
         ],
 
     ],
@@ -24,17 +24,17 @@ return [
     'notifications' => [
 
         'mail' => [
-            'enabled' => true,
-            'name' => 'Laravel Firewall',
-            'from' => 'firewall@mydomain.com',
-            'to' => ['admin@mydomain.com'],
+            'enabled' => env('FIREWALL_EMAIL_ENABLED', false),
+            'name' => env('FIREWALL_EMAIL_NAME', 'Laravel Firewall'),
+            'from' => env('FIREWALL_EMAIL_FROM', 'firewall@mydomain.com'),
+            'to' => [env('FIREWALL_EMAIL_TO', 'admin@mydomain.com')],
         ],
 
         'slack' => [
-            'enabled' => false,
-            'from' => 'Laravel Firewall',
-            'to' => '#my-channel',
-            'emoji' => ':fire:',
+            'enabled' => env('FIREWALL_SLACK_ENABLED', false),
+            'from' => env('FIREWALL_SLACK_FROM', 'Laravel Firewall'),
+            'to' => env('FIREWALL_SLACK_TO', '#my-channel'),
+            'emoji' => env('FIREWALL_SLACK_EMOJI', ':fire:'),
         ],
 
     ],
