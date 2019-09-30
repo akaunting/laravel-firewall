@@ -11,6 +11,10 @@ class Geo extends Middleware
     {
         $status = false;
 
+        if ($this->isEmpty()) {
+            return $status;
+        }
+
         if (!$location = $this->getLocation()) {
             return $status;
         }
@@ -29,6 +33,29 @@ class Geo extends Middleware
 
         if (!$status && $this->isFiltered($location, 'cities')) {
             $status = true;
+        }
+
+        return $status;
+    }
+
+    protected function isEmpty()
+    {
+        $status = true;
+
+        $types = ['continents', 'regions', 'countries', 'cities'];
+
+        foreach ($types as $type) {
+            if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $type)) {
+                continue;
+            }
+
+            if (empty($list['allow']) && empty($list['block'])) {
+                continue;
+            }
+
+            $status = false;
+
+            break;
         }
 
         return $status;
@@ -61,17 +88,6 @@ class Geo extends Middleware
         $service = config('firewall.middleware.' . $this->middleware . '.service');
 
         return $this->$service($location);
-    }
-
-    protected function getResponse($url)
-    {
-        try {
-            $response = json_decode(file_get_contents($url));
-        } catch (\ErrorException $e) {
-            $response = null;
-        }
-
-        return $response;
     }
 
     protected function ipapi($location)
@@ -151,5 +167,24 @@ class Geo extends Middleware
         $location->city = $response->city;
 
         return $location;
+    }
+
+    protected function getResponse($url)
+    {
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
+            $content = curl_exec($ch);
+            curl_close($ch);
+            
+            $response = json_decode($content);
+        } catch (\ErrorException $e) {
+            $response = null;
+        }
+
+        return $response;
     }
 }
