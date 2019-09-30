@@ -9,43 +9,31 @@ class Geo extends Middleware
 {
     public function check($patterns)
     {
-        $status = false;
+        $places = ['continents', 'regions', 'countries', 'cities'];
 
-        if ($this->isEmpty()) {
-            return $status;
+        if ($this->isEmpty($places)) {
+            return false;
         }
 
         if (!$location = $this->getLocation()) {
-            return $status;
+            return false;
         }
 
-        if ($this->isFiltered($location, 'continents')) {
-            $status = true;
+        foreach ($places as $place) {
+            if (!$this->isFiltered($location, $place)) {
+                continue;
+            }
+
+            return true;
         }
 
-        if (!$status && $this->isFiltered($location, 'regions')) {
-            $status = true;
-        }
-
-        if (!$status && $this->isFiltered($location, 'countries')) {
-            $status = true;
-        }
-
-        if (!$status && $this->isFiltered($location, 'cities')) {
-            $status = true;
-        }
-
-        return $status;
+        return false;
     }
 
-    protected function isEmpty()
+    protected function isEmpty($places)
     {
-        $status = true;
-
-        $types = ['continents', 'regions', 'countries', 'cities'];
-
-        foreach ($types as $type) {
-            if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $type)) {
+        foreach ($places as $place) {
+            if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
                 continue;
             }
 
@@ -53,27 +41,25 @@ class Geo extends Middleware
                 continue;
             }
 
-            $status = false;
-
-            break;
-        }
-
-        return $status;
-    }
-
-    protected function isFiltered($location, $type)
-    {
-        if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $type)) {
             return false;
         }
 
-        $s_type = Str::singular($type);
+        return true;
+    }
 
-        if (!empty($list['allow']) && !in_array((string) $location->$s_type, (array) $list['allow'])) {
+    protected function isFiltered($location, $place)
+    {
+        if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
+            return false;
+        }
+
+        $s_place = Str::singular($place);
+
+        if (!empty($list['allow']) && !in_array((string) $location->$s_place, (array) $list['allow'])) {
             return true;
         }
 
-        if (in_array((string) $location->$s_type, (array) $list['block'])) {
+        if (in_array((string) $location->$s_place, (array) $list['block'])) {
             return true;
         }
 
