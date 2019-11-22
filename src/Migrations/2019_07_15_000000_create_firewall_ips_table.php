@@ -14,13 +14,11 @@ class CreateFirewallIpsTable extends Migration
     {
         Schema::create('firewall_ips', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ip');
+            $table->ipAddress('ip')->index();
             $table->integer('log_id')->nullable();
             $table->boolean('blocked')->default(1);
             $table->timestamps();
             $table->softDeletes();
-            
-            $table->index('ip');
             $table->unique(['ip', 'deleted_at']);
         });
     }
