@@ -21,7 +21,6 @@ class CreateFirewallIpsTable extends Migration
             $table->softDeletes();
             
             $table->index('ip');
-            $table->unique(['ip', 'deleted_at']);
         });
     }
 
