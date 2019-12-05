@@ -40,6 +40,10 @@ class UnblockIp extends Command
         $now = Carbon::now(config('app.timezone'));
 
         Ip::with('log')->blocked()->each(function ($ip) use ($now) {
+            if (empty($ip->log)) {
+                return;
+            }
+
             $period = config('firewall.middleware.' . $ip->log->middleware . '.auto_block.period');
 
             if ($ip->created_at->addSeconds($period) > $now) {
