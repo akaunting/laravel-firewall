@@ -7,6 +7,7 @@ use Akaunting\Firewall\Models\Log;
 use Closure;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 abstract class Middleware
 {
@@ -73,7 +74,7 @@ abstract class Middleware
 
     public function isWhitelist()
     {
-        return in_array($this->ip(), config('firewall.whitelist'));
+        return IpUtils::checkIp($this->ip(), config('firewall.whitelist'));
     }
 
     public function isMethod()
