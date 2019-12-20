@@ -1,6 +1,6 @@
 # Web Application Firewall (WAF) package for Laravel
 
-[![Version](https://img.shields.io/packagist/v/akaunting/firewall)](https://github.com/akaunting/firewall/releases)
+[![Version](https://img.shields.io/packagist/v/akaunting/firewall?label=release)](https://github.com/akaunting/firewall/releases)
 ![Downloads](https://img.shields.io/packagist/dt/akaunting/firewall)
 ![Tests](https://img.shields.io/github/workflow/status/akaunting/firewall/Tests?label=tests)
 [![StyleCI](https://github.styleci.io/repos/197242392/shield?style=flat&branch=master)](https://styleci.io/repos/197242392)
