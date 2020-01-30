@@ -3,16 +3,16 @@
 namespace Akaunting\Firewall\Abstracts;
 
 use Akaunting\Firewall\Events\AttackDetected;
-use Akaunting\Firewall\Models\Log;
+use Akaunting\Firewall\Traits\Helper;
 use Closure;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Symfony\Component\HttpFoundation\IpUtils;
 
 abstract class Middleware
 {
+    use Helper;
+
     public $request = null;
-    public $input = null;
     public $middleware = null;
     public $user_id = null;
 
@@ -40,7 +40,7 @@ abstract class Middleware
     {
         $this->prepare($request);
 
-        if (!$this->isEnabled()) {
+        if ($this->isDisabled()) {
             return true;
         }
 
@@ -62,81 +62,8 @@ abstract class Middleware
     public function prepare($request)
     {
         $this->request = $request;
-        $this->input = $request->input();
         $this->middleware = strtolower((new \ReflectionClass($this))->getShortName());
         $this->user_id = auth()->id() ?: 0;
-    }
-
-    public function isEnabled()
-    {
-        return config('firewall.middleware.' . $this->middleware . '.enabled', config('firewall.enabled'));
-    }
-
-    public function isWhitelist()
-    {
-        return IpUtils::checkIp($this->ip(), config('firewall.whitelist'));
-    }
-
-    public function isMethod()
-    {
-        if (!$methods = config('firewall.middleware.' . $this->middleware . '.methods')) {
-            return false;
-        }
-
-        if (in_array('all', $methods)) {
-            return true;
-        }
-
-        return in_array(strtolower($this->request->method()), $methods);
-    }
-
-    public function isRoute()
-    {
-        if (!$routes = config('firewall.middleware.' . $this->middleware . '.routes')) {
-            return false;
-        }
-
-        foreach ($routes['except'] as $ex) {
-            if (!$this->request->is($ex)) {
-                continue;
-            }
-
-            return true;
-        }
-
-        foreach ($routes['only'] as $on) {
-            if ($this->request->is($on)) {
-                continue;
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function isInput($name)
-    {
-        if (!$inputs = config('firewall.middleware.' . $this->middleware . '.inputs')) {
-            return true;
-        }
-
-        if (!empty($inputs['only']) && !in_array((string) $name, (array) $inputs['only'])) {
-            return false;
-        }
-
-        return !in_array((string) $name, (array) $inputs['except']);
-    }
-
-    public function ip()
-    {
-        if ($cf_ip = $this->request->header('CF_CONNECTING_IP')) {
-            $ip = $cf_ip;
-        } else {
-            $ip = $this->request->ip();
-        }
-
-        return $ip;
     }
 
     public function getPatterns()
@@ -149,7 +76,7 @@ abstract class Middleware
         $log = null;
 
         foreach ($patterns as $pattern) {
-            if (!$match = $this->match($pattern, $this->input)) {
+            if (!$match = $this->match($pattern, $this->request->input())) {
                 continue;
             }
 
@@ -209,21 +136,6 @@ abstract class Middleware
     public function prepareInput($value)
     {
         return $value;
-    }
-
-    public function log()
-    {
-        $log = Log::create([
-            'ip' => $this->ip(),
-            'level' => 'medium',
-            'middleware' => $this->middleware,
-            'user_id' => $this->user_id,
-            'url' => $this->request->fullUrl(),
-            'referrer' => $this->request->server('HTTP_REFERER') ?: 'NULL',
-            'request' => urldecode(http_build_query($this->input)),
-        ]);
-
-        return $log;
     }
 
     public function respond($response, $data = [])
