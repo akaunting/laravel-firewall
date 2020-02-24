@@ -22,6 +22,8 @@ class CheckLogin
             return;
         }
 
+        $this->request['password'] = '******';
+
         $log = $this->log('login');
 
         event(new AttackDetected($log));
