@@ -7,8 +7,6 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected $database;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,8 +22,6 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-
-        $this->deleteDatabase();
     }
 
     protected function getPackageProviders($app)
@@ -33,6 +29,18 @@ abstract class TestCase extends BaseTestCase
         return [
             Provider::class,
         ];
+    }
+
+    protected function setUpDatabase()
+    {
+        config(['database.default' => 'testbench']);
+
+        config(['database.connections.testbench' => [
+                'driver'   => 'sqlite',
+                'database' => ':memory:',
+                'prefix'   => '',
+            ],
+        ]);
     }
 
     protected function setUpConfig()
@@ -45,28 +53,6 @@ abstract class TestCase extends BaseTestCase
         config(['firewall.middleware.rfi.methods' => ['all']]);
         config(['firewall.middleware.sqli.methods' => ['all']]);
         config(['firewall.middleware.xss.methods' => ['all']]);
-    }
-
-    protected function setUpDatabase()
-    {
-        if (!file_exists($path = __DIR__ . '/databases')) {
-            mkdir($path);
-        }
-
-        touch($this->database = tempnam($path, 'database.sqlite.'));
-
-        app()->config->set(
-            'database.connections.testbench', [
-                'driver'   => 'sqlite',
-                'database' => $this->database,
-                'prefix'   => '',
-            ]
-        );
-    }
-
-    protected function deleteDatabase()
-    {
-        @unlink($this->database);
     }
 
     public function getNextClosure()

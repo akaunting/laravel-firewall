@@ -28,5 +28,6 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="MAIL_DRIVER" value="array"/>
+        <env name="MAIL_MAILER" value="array"/>
     </php>
 </phpunit>
