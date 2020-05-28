@@ -53,7 +53,7 @@ class Tarpit extends Model
 
     public static function remove(string $ip_address)
     {
-        $tarpit = Tarpit::where('ip_address',$ip_address)->first();
+        $tarpit = Tarpit::where('ip_address', $ip_address)->first();
         if ($tarpit) {
             $tarpit->delete();
         }
