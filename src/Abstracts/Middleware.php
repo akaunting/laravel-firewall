@@ -30,7 +30,13 @@ abstract class Middleware
         }
 
         if ($this->check($this->getPatterns())) {
-            return $this->respond(config('firewall.responses.block'));
+            $customResponse = config('firewall.middleware.' . $this->middleware . '.responses.block');
+
+            if ($customResponse) {
+                return $this->respond($customResponse, $this->data);
+            }
+
+            return $this->respond(config('firewall.responses.block'), $this->data);
         }
 
         return $next($request);

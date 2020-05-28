@@ -75,6 +75,9 @@ Route::group(['middleware' => 'firewall.url'], function () {
 });
 ```
 
+### Custom views
+You can customize and make a specific view for each violation
+
 Available middlewares applicable to routes:
 
 ```php
@@ -91,6 +94,7 @@ firewall.rfi
 firewall.session
 firewall.sqli
 firewall.swear
+firewall.tarpit
 firewall.url
 firewall.whitelist
 firewall.xss
@@ -98,9 +102,69 @@ firewall.xss
 
 You may also define `routes` for each middleware in `config/firewall.php` and apply that middleware or `firewall.all` at the top of all routes.
 
+## Tarpit
+A tarpit blocks for a certain amount of time. Each time there is an addition to the tarpit the penalty period is increased squared.
+This tarpit has a setting for the grace_tries, which is the number of tries that the request is not penelized. After that the trapit starts blocking traffic.
+The reason for putting a IP in a trapit could be wrong user credentials or other violations of the firewall
+
+### Usage
+Adding an IP to the tarpit
+```
+use Akaunting\Firewall\Models\Tarpit;
+Tarpit::addTry(request()->ip());
+```
+
+Manual checking if the IP is blocked
+```
+use Akaunting\Firewall\Models\Tarpit;
+if (Tarpit::isBlocked(request()->ip())){
+    echo "BLOCKED"
+}
+```
+OR
+```
+use Akaunting\Firewall\Models\Tarpit;
+$blockedUntil = model::blockedUntil($this->ip()); // returns carbon object
+if ($blockedUntil) {
+    echo "BLOCKED until:" . $blockedUntil->format('d-m-Y i'); 
+}
+```
+
+Removing from tarpit
+```
+use Akaunting\Firewall\Models\Tarpit;
+Tarpit::remove($this->ip());
+```
+
+Response
+```
+    <div class="card-body">
+        {{$try_again_in_mintues}} minutes
+    </div>
+```
+
+Config
+* grace_tries : Number of tries the user is not penelized
+* penalty_seconds : The time of the penialization duration in seconds
+* In the config you can specify the view that needs to be rendered on a blocking by the trapit
+
+### Example
+grace_tries = 3
+penalty_seconds = 30
+
+ip is blocked 3 times : no penalization because of grace period
+ip is blocked 4 times : penalization for 1 block = 1*1*30 seconds = 30 seconds
+ip is blocked 5 times : penalization for 2 block = 2*2*30 seconds = 2 minutes
+ip is blocked 6 times : penalization for 6 block = 3*3*30 seconds = 4.5 min 
+ip is blocked 7 times : penalization for 7 block = 4*4*30 seconds = 8 min
+
+
+
+ 
+
 ## Notifications
 
-Firewall will send a notification as soon as an attack has been detected. Emails entered in `notifications.email.to` config must be valid Laravel users in order to send notifications. Check out the Notifications documentation of Laravel for further information.
+Firewall will send a notification as soon as an attack has been detected. Emails entered in `notifications.mail.to` config must be valid Laravel users in order to send notifications. Check out the Notifications documentation of Laravel for further information.
 
 ## Changelog
 

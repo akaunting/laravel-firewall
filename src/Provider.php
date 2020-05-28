@@ -69,6 +69,7 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('firewall.session', 'Akaunting\Firewall\Middleware\Session');
         $router->aliasMiddleware('firewall.sqli', 'Akaunting\Firewall\Middleware\Sqli');
         $router->aliasMiddleware('firewall.swear', 'Akaunting\Firewall\Middleware\Swear');
+        $router->aliasMiddleware('firewall.tarpit', 'Akaunting\Firewall\Middleware\Tarpit');
         $router->aliasMiddleware('firewall.url', 'Akaunting\Firewall\Middleware\Url');
         $router->aliasMiddleware('firewall.whitelist', 'Akaunting\Firewall\Middleware\Whitelist');
         $router->aliasMiddleware('firewall.xss', 'Akaunting\Firewall\Middleware\Xss');

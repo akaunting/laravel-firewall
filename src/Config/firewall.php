@@ -51,6 +51,7 @@ return [
         'firewall.session',
         'firewall.sqli',
         'firewall.swear',
+        'firewall.tarpit',
         'firewall.xss',
         //'App\Http\Middleware\YourCustomRule',
     ],
@@ -340,6 +341,36 @@ return [
                 'attempts' => 3,
                 'frequency' => 5 * 60, // 5 minutes
                 'period' => 30 * 60, // 30 minutes
+            ],
+        ],
+
+        'tarpit' => [
+            'methods' => ['all'],
+
+            'routes' => [
+                'only' => [], // i.e. 'contact'
+                'except' => [], // i.e. 'admin/*'
+            ],
+
+            'inputs' => [
+                'only' => [], // i.e. 'first_name'
+                'except' => [], // i.e. 'password'
+            ],
+
+            'grace_tries' => 3,
+
+            'penalty_seconds' => 30,
+
+            'responses' => [
+
+                'block' => [
+                    'view' => env('FIREWALL_TARPIT_BLOCK_VIEW', null),
+                    'redirect' => env('FIREWALL_TARPIT_BLOCK_REDIRECT', null),
+                    'abort' => env('FIREWALL_TARPIT_BLOCK_ABORT', false),
+                    'code' => env('FIREWALL_TARPIT_BLOCK_CODE', 4031),
+                    'message' => env('FIREWALL_TARPIT_BLOCK_MESSAGE', ''),
+                ],
+
             ],
         ],
 
