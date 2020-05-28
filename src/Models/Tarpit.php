@@ -71,6 +71,5 @@ class Tarpit extends Model
 
         return Carbon::now()->addSeconds($penaltyInSeconds);
     }
-
 }
 
