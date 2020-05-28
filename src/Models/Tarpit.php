@@ -10,7 +10,7 @@ class Tarpit extends Model
 
     public static function addTry(string $ip_address)
     {
-        $tarpit = Tarpit::where('ip_address',$ip_address)->first();
+        $tarpit = Tarpit::where('ip_address', $ip_address)->first();
         if (!$tarpit) {
             $tarpit = new Tarpit();
             $tarpit->ip_address = $ip_address;
@@ -23,13 +23,13 @@ class Tarpit extends Model
 
     public static function isBlocked(string $ip_address)
     {
-        $tarpit = Tarpit::where('ip_address',$ip_address)->first();
+        $tarpit = Tarpit::where('ip_address', $ip_address)->first();
         if (!$tarpit) {
             echo "free";
             return false;
         }
 
-        if ( Carbon::parse($tarpit->block_until) < Carbon::now() ) {
+        if (Carbon::parse($tarpit->block_until) < Carbon::now()) {
             echo "free";
             return false;
         }

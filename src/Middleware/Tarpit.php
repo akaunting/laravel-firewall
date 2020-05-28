@@ -14,7 +14,7 @@ class Tarpit extends Middleware
         $violationFound = false;
 
         $blockedUntil = model::blockedUntil($this->ip());
-        if ($blockedUntil){
+        if ($blockedUntil) {
             $violationFound = true;
             $tryAganiInMinutes = Carbon::now()->diffInMinutes($blockedUntil);
 
