@@ -16,6 +16,8 @@ abstract class Middleware
     public $middleware = null;
     public $user_id = null;
 
+    public $data = [];
+
     /**
      * Handle an incoming request.
      *
