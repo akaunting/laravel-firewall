@@ -16,9 +16,7 @@ class Tarpit extends Middleware
         $blockedUntil = model::blockedUntil($this->ip());
         if ($blockedUntil) {
             $violationFound = true;
-            $tryAganiInSeconds = Carbon::now()->diffInSeconds($blockedUntil);
-
-            $waitTime =  floor($tryAganiInSeconds/ 60). ":". ($tryAganiInSeconds % 60);
+            $waitTime = Carbon::now()->diff($blockedUntil)->format('%H:%I:%S');
 
             $this->data = [
                 'try_again_in_mintues' => $waitTime
