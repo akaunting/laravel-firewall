@@ -25,15 +25,12 @@ class Tarpit extends Model
     {
         $tarpit = Tarpit::where('ip_address', $ip_address)->first();
         if (!$tarpit) {
-            echo "free";
             return false;
         }
 
         if (Carbon::parse($tarpit->block_until) < Carbon::now()) {
-            echo "free";
             return false;
         }
-        echo "block";
         return true;
     }
 
