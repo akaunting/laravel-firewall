@@ -32,13 +32,20 @@ abstract class Middleware
         }
 
         if ($this->check($this->getPatterns())) {
-            $customResponse = config('firewall.middleware.' . $this->middleware . '.responses.block');
-
-            if ($customResponse) {
-                return $this->respond($customResponse, $this->data);
+            $responseConfig = config('firewall.middleware.' . $this->middleware . '.responses.block');
+            if (!$responseConfig) {
+                $responseConfig = config('firewall.responses.block');
             }
 
-            return $this->respond(config('firewall.responses.block'), $this->data);
+            if($request->wantsJson()) {
+                $message = "Access Denied";
+                if (array_key_exists('message', $responseConfig)) {
+                    $message = $responseConfig['message'];
+                }
+                abort(403, $message);
+            }
+
+            return $this->respond($responseConfig, $this->data);
         }
 
         return $next($request);
