@@ -37,7 +37,7 @@ abstract class Middleware
                 $responseConfig = config('firewall.responses.block');
             }
 
-            if($request->wantsJson()) {
+            if ($request->wantsJson()) {
                 $message = "Access Denied";
                 if (array_key_exists('message', $responseConfig)) {
                     $message = $responseConfig['message'];
