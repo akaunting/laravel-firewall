@@ -13,7 +13,8 @@ class Ip extends Middleware
         $status = false;
 
         try {
-            $status = Model::blocked($this->ip())->pluck('id')->first();
+            $model = config('firewall.models.ip', Model::class);
+            $status = $model::blocked($this->ip())->pluck('id')->first();
         } catch (QueryException $e) {
             // Base table or view not found
             //$status = ($e->getCode() == '42S02') ? false : true;

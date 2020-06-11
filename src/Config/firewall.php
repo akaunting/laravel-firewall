@@ -8,6 +8,8 @@ return [
 
     'models' => [
         'user' => '\App\User',
+        // 'log' => '\App\YourLogModel',
+        // 'ip'  => '\App\YourIpModel',
     ],
 
     'responses' => [

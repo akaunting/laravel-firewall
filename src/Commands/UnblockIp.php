@@ -39,7 +39,8 @@ class UnblockIp extends Command
     {
         $now = Carbon::now(config('app.timezone'));
 
-        Ip::with('log')->blocked()->each(function ($ip) use ($now) {
+        $ip = config('firewall.models.ip', Ip::class);
+        $ip::with('log')->blocked()->each(function ($ip) use ($now) {
             if (empty($ip->log)) {
                 return;
             }
