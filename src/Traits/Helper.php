@@ -86,7 +86,8 @@ trait Helper
         $middleware = $middleware ?? $this->middleware;
         $user_id = $user_id ?? $this->user_id;
 
-        return Log::create([
+        $log = config('firewall.models.log', Log::class);
+        return $log::create([
             'ip' => $this->ip(),
             'level' => $level,
             'middleware' => $middleware,
