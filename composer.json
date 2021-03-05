@@ -1,5 +1,5 @@
 {
-    "name": "akaunting/firewall",
+    "name": "akaunting/laravel-firewall",
     "description": "Web Application Firewall (WAF) package for Laravel",
     "keywords": [
       "laravel",

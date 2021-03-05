@@ -1,11 +1,10 @@
 # Web Application Firewall (WAF) package for Laravel
 
-[![Version](https://img.shields.io/packagist/v/akaunting/firewall?label=release)](https://github.com/akaunting/firewall/releases)
-![Downloads](https://img.shields.io/packagist/dt/akaunting/firewall)
-![Tests](https://img.shields.io/github/workflow/status/akaunting/firewall/Tests?label=tests)
+![Downloads](https://img.shields.io/packagist/dt/akaunting/laravel-firewall)
+![Tests](https://img.shields.io/github/workflow/status/akaunting/laravel-firewall/Tests?label=tests)
 [![StyleCI](https://github.styleci.io/repos/197242392/shield?style=flat&branch=master)](https://styleci.io/repos/197242392)
-[![Quality](https://img.shields.io/scrutinizer/quality/g/akaunting/firewall?label=quality)](https://scrutinizer-ci.com/g/akaunting/firewall)
-[![License](https://img.shields.io/github/license/akaunting/firewall)](LICENSE.md)
+[![Quality](https://img.shields.io/scrutinizer/quality/g/akaunting/laravel-firewall?label=quality)](https://scrutinizer-ci.com/g/akaunting/laravel-firewall)
+[![License](https://img.shields.io/github/license/akaunting/laravel-firewall)](LICENSE.md)
 
 This package intends to protect your Laravel app from different type of attacks such as XSS, SQLi, RFI, LFI, User Agent, and a lot more. It will also block repeated attacks and send notification via email and/or slack when attack is detected. Furthermore, it will log failed logins and block the IP after a number of attempts.
 
@@ -18,7 +17,7 @@ Note: Some middleware classes (i.e. Xss) are empty as the `Middleware` abstract 
 Run the following command:
 
 ```bash
-composer require akaunting/firewall
+composer require akaunting/laravel-firewall
 ```
 
 ### 2. Register (for Laravel < 5.5)
