@@ -4,6 +4,10 @@ namespace Akaunting\Firewall\Listeners;
 
 use Akaunting\Firewall\Events\AttackDetected as Event;
 use Akaunting\Firewall\Notifications\AttackDetected as Notification;
+use Exception;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Notifications\Notifiable;
+use Throwable;
 
 class NotifyUsers
 {
@@ -16,22 +20,34 @@ class NotifyUsers
      */
     public function handle(Event $event)
     {
-        $model = config('firewall.models.user');
+        $notifiable = $this->getNotifiableClass();
 
-        if (!class_exists($model)) {
-            return;
+        try {
+            $notifiable->notify(new Notification($event->log));
+        } catch (Exception | RequestException | Throwable $e) {
+            report($e);
         }
+    }
 
-        $emails = config('firewall.notifications.mail.to');
+    protected function getNotifiableClass()
+    {
+        return new class() {
+            use Notifiable;
 
-        foreach ($emails as $email) {
-            $user = $model::where('email', $email)->first();
-
-            if (empty($user)) {
-                continue;
+            public function routeNotificationForMail()
+            {
+                return config('firewall.notifications.mail.to');
             }
 
-            $user->notify(new Notification($event->log));
-        }
+            public function routeNotificationForSlack()
+            {
+                return config('firewall.notifications.slack.to');
+            }
+
+            public function getKey()
+            {
+                return 1;
+            }
+        };
     }
 }

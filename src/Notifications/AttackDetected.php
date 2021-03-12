@@ -48,7 +48,7 @@ class AttackDetected extends Notification implements ShouldQueue
         $channels = [];
 
         foreach ($this->notifications as $channel => $settings) {
-            if (!$settings['enabled']) {
+            if (empty($settings['enabled'])) {
                 continue;
             }
 
@@ -69,7 +69,7 @@ class AttackDetected extends Notification implements ShouldQueue
         $domain = request()->getHttpHost();
 
         $subject = trans('firewall::notifications.mail.subject', [
-            'domain' => $domain
+            'domain' => $domain,
         ]);
 
         $message = trans('firewall::notifications.mail.message', [
@@ -100,7 +100,7 @@ class AttackDetected extends Notification implements ShouldQueue
         return (new SlackMessage)
             ->error()
             ->from($this->notifications['slack']['from'], $this->notifications['slack']['emoji'])
-            ->to($this->notifications['slack']['to'])
+            ->to($this->notifications['slack']['channel'])
             ->content($message)
             ->attachment(function ($attachment) {
                 $attachment->fields([
