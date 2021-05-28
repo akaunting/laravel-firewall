@@ -145,7 +145,7 @@ abstract class Middleware
         }
 
         if ($view = $response['view']) {
-            return Response::view($view, $data);
+            return Response::view($view, $data, $response['code']);
         }
 
         if ($redirect = $response['redirect']) {
