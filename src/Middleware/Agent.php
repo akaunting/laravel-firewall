@@ -119,7 +119,7 @@ class Agent extends Middleware
 
             $function = 'is' . ucfirst($allow);
 
-            if ($this->$function()) {
+            if ($this->parser->$function()) {
                 continue;
             }
 
