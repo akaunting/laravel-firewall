@@ -167,4 +167,19 @@ class Agent extends Middleware
 
         return false;
     }
+
+    protected function isMobile(): bool
+    {
+        return (new Parser())->isMobile();
+    }
+
+    protected function isTablet(): bool
+    {
+        return (new Parser())->isTablet();
+    }
+
+    protected function isDesktop(): bool
+    {
+        return (new Parser())->isDesktop();
+    }
 }
