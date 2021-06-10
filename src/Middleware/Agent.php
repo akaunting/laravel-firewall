@@ -119,7 +119,7 @@ class Agent extends Middleware
 
             $function = 'is' . ucfirst($allow);
 
-            if ($this->$function()) {
+            if ($this->parser->$function()) {
                 continue;
             }
 
@@ -166,20 +166,5 @@ class Agent extends Middleware
         }
 
         return false;
-    }
-
-    protected function isMobile(): bool
-    {
-        return (new Parser())->isMobile();
-    }
-
-    protected function isTablet(): bool
-    {
-        return (new Parser())->isTablet();
-    }
-
-    protected function isDesktop(): bool
-    {
-        return (new Parser())->isDesktop();
     }
 }
