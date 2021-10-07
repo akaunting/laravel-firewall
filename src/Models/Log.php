@@ -9,11 +9,11 @@ class Log extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'firewall_logs';
+    protected array $table = 'firewall_logs';
 
-    protected $dates = ['deleted_at'];
+    protected array $dates = ['deleted_at'];
 
-    protected $fillable = ['ip', 'level', 'middleware', 'user_id', 'url', 'referrer', 'request'];
+    protected array $fillable = ['ip', 'level', 'middleware', 'user_id', 'url', 'referrer', 'request'];
 
     public function user()
     {
