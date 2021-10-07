@@ -9,11 +9,11 @@ class Ip extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'firewall_ips';
+    protected array $table = 'firewall_ips';
 
-    protected $dates = ['deleted_at'];
+    protected array $dates = ['deleted_at'];
 
-    protected $fillable = ['ip', 'log_id', 'blocked'];
+    protected array $fillable = ['ip', 'log_id', 'blocked'];
 
     public function log()
     {
