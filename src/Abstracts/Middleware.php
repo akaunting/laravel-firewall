@@ -156,12 +156,14 @@ abstract class Middleware
             return Redirect::to($redirect);
         }
 
-        if ($exception = $response['exception']) {
-            throw new $exception();
-        }
-
         if ($response['abort']) {
             abort($response['code'], trans('firewall::responses.block.message'));
+        }
+
+        if (array_key_exists('exception', $response)) {
+            if ($exception = $response['exception']) {
+                throw new $exception();
+            }
         }
 
         return Response::make(trans('firewall::responses.block.message'), $response['code']);
