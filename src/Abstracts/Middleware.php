@@ -160,6 +160,12 @@ abstract class Middleware
             abort($response['code'], trans('firewall::responses.block.message'));
         }
 
+        if (array_key_exists('exception', $response)) {
+            if ($exception = $response['exception']) {
+                throw new $exception();
+            }
+        }
+
         return Response::make(trans('firewall::responses.block.message'), $response['code']);
     }
 }
