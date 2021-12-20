@@ -29,8 +29,7 @@ abstract class Middleware
             return $next($request);
         }
 
-        if ($this->check($this->getPatterns()))
-        {
+        if ($this->check($this->getPatterns())) {
             if ($this->preventIpBlock()) {
                 $request->request->add(['prevented_ip_block' => true]);
                 return $next($request);
