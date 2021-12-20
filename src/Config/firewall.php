@@ -19,7 +19,7 @@ return [
             'redirect' => env('FIREWALL_BLOCK_REDIRECT', null),
             'abort' => env('FIREWALL_BLOCK_ABORT', false),
             'code' => env('FIREWALL_BLOCK_CODE', 403),
-            'exception' => \Akaunting\Firewall\Exceptions\AccessDenied::class,
+            //'exception' => \Akaunting\Firewall\Exceptions\AccessDenied::class,
         ],
 
     ],
