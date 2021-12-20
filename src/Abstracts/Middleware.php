@@ -30,10 +30,34 @@ abstract class Middleware
         }
 
         if ($this->check($this->getPatterns())) {
+
+            if ($this->preventIpBlock()) {
+                $request->request->add(['prevented_ip_block' => true]);
+                return $next($request);
+            }
+
             return $this->respond(config('firewall.responses.block'));
         }
 
         return $next($request);
+    }
+
+    private function preventIpBlock()
+    {
+        if (!config('firewall.prevent_block_ips')) {
+            return false;
+        }
+
+        if (config('firewall.prevent_block_ips') === '*') {
+            return true;
+        }
+
+        $preventBlockIps = explode(',', config('firewall.prevent_block_ips'));
+        if (in_array(request()->ip(), $preventBlockIps, true)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function skip($request)

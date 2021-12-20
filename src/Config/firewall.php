@@ -6,6 +6,18 @@ return [
 
     'whitelist' => [env('FIREWALL_WHITELIST', '')],
 
+    # --------- PREVENT IP BLOCK ------------------
+    # The following IP's are never blocked but they will still pass through all checks
+    # Whitelising skips checks, prevent_ip_block will still register the ip as blocked,
+    # but will not block the actual request
+    # instead it will add 'prevented_ip_block' = true to the request
+    # so you can show the user that their IP would have been blocked
+    # -------------------------------------------------
+    # Whitelisted IP    Reason/Location
+    # *                 : any location
+    # 111.112.112.112   : some remote host
+    'prevent_block_ips' => [env('FIREWALL_PREVENT_BLOCK_IPS', null)],
+
     'models' => [
         'user' => '\App\Models\User',
         // 'log' => '\App\Models\YourLogModel',
