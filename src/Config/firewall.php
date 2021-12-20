@@ -16,7 +16,7 @@ return [
     # Whitelisted IP    Reason/Location
     # *                 : any location
     # 111.112.112.112   : some remote host
-    'prevent_block_ips' => [env('FIREWALL_PREVENT_BLOCK_IPS', null)],
+    'prevent_block_ips' => env('FIREWALL_PREVENT_BLOCK_IPS', null),
 
     'models' => [
         'user' => '\App\Models\User',
