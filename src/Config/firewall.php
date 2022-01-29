@@ -401,4 +401,9 @@ return [
 
     ],
 
+    // Maximum number of characters to log. This will prevent database errors when the request is too large (ie of rfi)
+    'logging' => [
+        'max_request_size' => 1024,
+    ]
+
 ];

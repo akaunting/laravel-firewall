@@ -19,4 +19,13 @@ class Log extends Model
     {
         return $this->belongsTo(config('firewall.models.user'));
     }
+
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            $model->request = substr($model->request, 0, config('firewall.logging.max_request_size'));
+        });
+    }
 }
