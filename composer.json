@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": ">=7.3",
-        "laravel/framework": ">=5.5",
+        "laravel/framework": "5.5 - 7",
         "guzzlehttp/guzzle": ">=6.0",
         "jenssegers/agent": "2.6.*"
     },
