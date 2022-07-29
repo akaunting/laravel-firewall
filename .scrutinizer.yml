@@ -13,8 +13,7 @@ tools:
     php_code_sniffer:
         config:
             standard: "PSR2"
-    php_cpd: true
+    php_cpd: false # PHP Copy/Paste Detector and PHP Code Similarity Analyzer cannot both be used simultaneously
     php_mess_detector: true
     php_pdepend: true
     sensiolabs_security_checker: true
-    php_sim: false
