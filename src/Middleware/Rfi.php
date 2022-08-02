@@ -23,6 +23,10 @@ class Rfi extends Middleware
         }
 
         foreach ($input as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+
             if (is_array($value)) {
                 if (!$result = $this->match($pattern, $value)) {
                     continue;
@@ -48,7 +52,7 @@ class Rfi extends Middleware
 
         return $result;
     }
-    
+
     protected function applyExceptions($string)
     {
         $exceptions = config('firewall.middleware.' . $this->middleware . '.exceptions');
@@ -62,7 +66,7 @@ class Rfi extends Middleware
 
         return str_replace($exceptions, '', $string);
     }
-    
+
     protected function checkContent($value)
     {
         $contents = @file_get_contents($value);
@@ -70,7 +74,7 @@ class Rfi extends Middleware
         if (!empty($contents)) {
             return (strstr($contents, '<?php') !== false);
         }
-        
+
         return false;
     }
 }

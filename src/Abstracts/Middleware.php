@@ -109,6 +109,10 @@ abstract class Middleware
         }
 
         foreach ($input as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+
             if (is_array($value)) {
                 if (!$result = $this->match($pattern, $value)) {
                     continue;
