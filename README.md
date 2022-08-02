@@ -19,15 +19,7 @@ Run the following command:
 composer require akaunting/laravel-firewall
 ```
 
-### 2. Register (for Laravel < 5.5)
-
-Register the service provider in `config/app.php`
-
-```php
-Akaunting\Firewall\Provider::class,
-```
-
-### 3. Publish
+### 2. Publish
 
 Publish configuration, language, and migrations
 
@@ -35,7 +27,7 @@ Publish configuration, language, and migrations
 php artisan vendor:publish --tag=firewall
 ```
 
-### 4. Database
+### 3. Database
 
 Create db tables
 
@@ -43,7 +35,7 @@ Create db tables
 php artisan migrate
 ```
 
-### 5. Configure
+### 4. Configure
 
 You can change the firewall settings of your app from `config/firewall.php` file
 
@@ -102,7 +94,7 @@ Firewall will send a notification as soon as an attack has been detected. Emails
 
 ## Changelog
 
-Please see [Releases](../../releases) for more information what has changed recently.
+Please see [Releases](../../releases) for more information on what has changed recently.
 
 ## Contributing
 
