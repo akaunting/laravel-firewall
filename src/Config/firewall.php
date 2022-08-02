@@ -66,6 +66,8 @@ return [
     'middleware' => [
 
         'ip' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_IP_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -75,6 +77,8 @@ return [
         ],
 
         'agent' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_AGENT_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -111,6 +115,8 @@ return [
         ],
 
         'bot' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_BOT_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -132,6 +138,8 @@ return [
         ],
 
         'geo' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_GEO_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -170,6 +178,8 @@ return [
         ],
 
         'lfi' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_LFI_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['get', 'delete'],
 
             'routes' => [
@@ -194,7 +204,7 @@ return [
         ],
 
         'login' => [
-            'enabled' => true,
+            'enabled' => env('FIREWALL_MIDDLEWARE_LOGIN_ENABLED', env('FIREWALL_ENABLED', true)),
 
             'auto_block' => [
                 'attempts' => 5,
@@ -204,6 +214,8 @@ return [
         ],
 
         'php' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_PHP_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['get', 'post', 'delete'],
 
             'routes' => [
@@ -237,6 +249,8 @@ return [
         ],
 
         'referrer' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_REFERRER_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -254,6 +268,8 @@ return [
         ],
 
         'rfi' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_RFI_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['get', 'post', 'delete'],
 
             'routes' => [
@@ -280,6 +296,8 @@ return [
         ],
 
         'session' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_SESSION_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['get', 'post', 'delete'],
 
             'routes' => [
@@ -305,6 +323,8 @@ return [
         ],
 
         'sqli' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_SQLI_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['get', 'delete'],
 
             'routes' => [
@@ -330,6 +350,8 @@ return [
         ],
 
         'swear' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_SWEAR_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['post', 'put', 'patch'],
 
             'routes' => [
@@ -352,6 +374,8 @@ return [
         ],
 
         'url' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_URL_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'inspections' => [], // i.e. 'admin'
@@ -364,6 +388,8 @@ return [
         ],
 
         'whitelist' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_WHITELIST_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['all'],
 
             'routes' => [
@@ -373,6 +399,8 @@ return [
         ],
 
         'xss' => [
+            'enabled' => env('FIREWALL_MIDDLEWARE_XSS_ENABLED', env('FIREWALL_ENABLED', true)),
+
             'methods' => ['post', 'put', 'patch'],
 
             'routes' => [
