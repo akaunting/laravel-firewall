@@ -4,34 +4,36 @@ on: [push, pull_request]
 
 jobs:
   tests:
-
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.stability }}
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        php: ['7.3', '7.4', '8.0', '8.1']
+        php: ['8.0', '8.1']
+        laravel: [8.*, 9.*]
+        stability: [prefer-lowest, prefer-stable]
+        include:
+          - laravel: 8.*
+            testbench: ^6.6
+          - laravel: 9.*
+            testbench: 7.*
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache composer
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache/files
-          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
+          extensions: bcmath, ctype, dom, fileinfo, intl, gd, json, mbstring, pdo, pdo_sqlite, openssl, sqlite, xml, zip
           coverage: none
 
-      - name: Install composer
-        run: composer install --no-interaction --no-scripts --no-suggest --prefer-source
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
