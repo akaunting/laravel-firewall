@@ -106,8 +106,12 @@ class Provider extends ServiceProvider
     {
         $this->commands(UnblockIp::class);
 
-        $this->app->booted(function () {
-            app(Schedule::class)->command('firewall:unblockip')->everyMinute();
-        });
+        if (config('firewall.unblockip_cron.enabled', true)) {
+            $this->app->booted(function () {
+                app(Schedule::class)
+                    ->command('firewall:unblockip')
+                    ->cron(config('firewall.unblockip_cron.cron', '* * * * *'));
+            });
+        }
     }
 }

@@ -12,6 +12,10 @@ return [
         // 'ip' => '\App\Models\YourIpModel',
     ],
 
+    'unblockip_cron' => [
+        'enabled' => boolval(env('FIREWALL_UNBLOCKIP_ENABLED', true)),
+        'cron' => env('FIREWALL_UNBLOCKIP_CRON', '* * * * *'),
+    ],
     'responses' => [
 
         'block' => [
