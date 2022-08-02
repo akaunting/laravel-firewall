@@ -3,7 +3,6 @@
 ![Downloads](https://img.shields.io/packagist/dt/akaunting/laravel-firewall)
 ![Tests](https://img.shields.io/github/workflow/status/akaunting/laravel-firewall/Tests?label=tests)
 [![StyleCI](https://github.styleci.io/repos/197242392/shield?style=flat&branch=master)](https://styleci.io/repos/197242392)
-[![Quality](https://img.shields.io/scrutinizer/quality/g/akaunting/laravel-firewall?label=quality)](https://scrutinizer-ci.com/g/akaunting/laravel-firewall)
 [![License](https://img.shields.io/github/license/akaunting/laravel-firewall)](LICENSE.md)
 
 This package intends to protect your Laravel app from different type of attacks such as XSS, SQLi, RFI, LFI, User Agent, and a lot more. It will also block repeated attacks and send notification via email and/or slack when attack is detected. Furthermore, it will log failed logins and block the IP after a number of attempts.
@@ -50,7 +49,7 @@ You can change the firewall settings of your app from `config/firewall.php` file
 
 ## Usage
 
-Middlewares are already defined so should just add them to routes. The `firewall.all` middleware applies all the middlewares available in the `all_middleware` array of config file. 
+Middlewares are already defined so should just add them to routes. The `firewall.all` middleware applies all the middlewares available in the `all_middleware` array of config file.
 
 ```php
 Route::group(['middleware' => 'firewall.all'], function () {
@@ -111,7 +110,7 @@ Pull requests are more than welcome. You must follow the PSR coding standards.
 
 ## Security
 
-If you discover any security related issues, please email security@akaunting.com instead of using the issue tracker.
+Please review [our security policy](https://github.com/akaunting/laravel-firewall/security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
