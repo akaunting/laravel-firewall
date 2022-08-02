@@ -23,13 +23,13 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^8.67|^9.0",
+        "laravel/framework": "^9.0",
         "guzzlehttp/guzzle": "^7.4",
         "jenssegers/agent": "2.6.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "orchestra/testbench": "^6.23|^7.4"
+        "orchestra/testbench": "^7.4"
     },
     "autoload": {
         "psr-4": {
