@@ -86,15 +86,18 @@ trait Helper
         $middleware = $middleware ?? $this->middleware;
         $user_id = $user_id ?? $this->user_id;
 
-        $log = config('firewall.models.log', Log::class);
-        return $log::create([
+        $model = config('firewall.models.log', Log::class);
+
+        $input = urldecode(http_build_query($this->request->input()));
+
+        return $model::create([
             'ip' => $this->ip(),
             'level' => $level,
             'middleware' => $middleware,
             'user_id' => $user_id,
             'url' => $this->request->fullUrl(),
             'referrer' => $this->request->server('HTTP_REFERER') ?: 'NULL',
-            'request' => urldecode(http_build_query($this->request->input())),
+            'request' => substr($input, 0, config('firewall.log.max_request_size')),
         ]);
     }
 

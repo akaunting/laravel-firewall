@@ -12,6 +12,10 @@ return [
         // 'ip' => '\App\Models\YourIpModel',
     ],
 
+    'log' => [
+        'max_request_size' => 2048,
+    ],
+
     'cron' => [
         'enabled' => env('FIREWALL_CRON_ENABLED', true),
         'expression' => env('FIREWALL_CRON_EXPRESSION', '* * * * *'),
