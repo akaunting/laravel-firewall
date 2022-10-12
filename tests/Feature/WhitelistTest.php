@@ -15,6 +15,13 @@ class WhitelistTest extends TestCase
         $this->assertEquals('next', (new Whitelist())->handle($this->app->request, $this->getNextClosure()));
     }
 
+    public function testShouldAllowMultiple()
+    {
+        config(['firewall.whitelist' => ['127.0.0.0/24:0.0.0.0']]);
+
+        $this->assertEquals('next', (new Whitelist())->handle($this->app->request, $this->getNextClosure()));
+    }
+
     public function testShouldBlock()
     {
         $this->assertEquals('403', (new Whitelist())->handle($this->app->request, $this->getNextClosure())->getStatusCode());
