@@ -27,7 +27,7 @@ class Provider extends ServiceProvider
 
         $langPath = (function_exists('lang_path'))
             ? lang_path($langPath)
-            : resource_path('lang/'.$langPath);
+            : resource_path('lang/' . $langPath);
 
         $this->publishes([
             __DIR__ . '/Config/firewall.php'                                            => config_path('firewall.php'),
