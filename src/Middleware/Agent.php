@@ -127,7 +127,6 @@ class Agent extends Middleware
         }
 
         foreach ((array) $devices['block'] as $block) {
-
             if (!in_array($block, $list)) {
                 continue;
             }
