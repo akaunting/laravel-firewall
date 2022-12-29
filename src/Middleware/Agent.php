@@ -127,19 +127,19 @@ class Agent extends Middleware
         }
 
         foreach ((array) $devices['block'] as $block) {
+
             if (!in_array($block, $list)) {
                 continue;
             }
 
             $function = 'is' . ucfirst($block);
 
-            if (!$this->$function()) {
+            if ($this->parser->$function() == false) {
                 continue;
             }
 
             return true;
         }
-
         return false;
     }
 
