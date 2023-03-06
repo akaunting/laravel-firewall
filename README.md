@@ -1,7 +1,7 @@
 # Web Application Firewall (WAF) package for Laravel
 
 ![Downloads](https://img.shields.io/packagist/dt/akaunting/laravel-firewall)
-![Tests](https://img.shields.io/github/workflow/status/akaunting/laravel-firewall/Tests?label=tests)
+![Tests](https://img.shields.io/github/actions/workflow/status/akaunting/laravel-firewall/tests.yml?label=tests)
 [![StyleCI](https://github.styleci.io/repos/197242392/shield?style=flat&branch=master)](https://styleci.io/repos/197242392)
 [![License](https://img.shields.io/github/license/akaunting/laravel-firewall)](LICENSE.md)
 
