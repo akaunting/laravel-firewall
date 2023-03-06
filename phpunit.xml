@@ -11,11 +11,6 @@
          stopOnFailure="false"
          verbose="true"
 >
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
     <testsuites>
         <testsuite name="Package Test Suite">
             <directory suffix="Test.php">tests</directory>
