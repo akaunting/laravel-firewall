@@ -133,7 +133,7 @@ class Agent extends Middleware
 
             $function = 'is' . ucfirst($block);
 
-            if (!$this->$function()) {
+            if (! $this->parser->$function()) {
                 continue;
             }
 
