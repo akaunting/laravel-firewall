@@ -23,16 +23,22 @@ class Provider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+        $langPath = 'vendor/firewall';
+
+        $langPath = (function_exists('lang_path'))
+            ? lang_path($langPath)
+            : resource_path('lang/' . $langPath);
+
         $this->publishes([
             __DIR__ . '/Config/firewall.php'                                            => config_path('firewall.php'),
             __DIR__ . '/Migrations/2019_07_15_000000_create_firewall_ips_table.php'     => database_path('migrations/2019_07_15_000000_create_firewall_ips_table.php'),
             __DIR__ . '/Migrations/2019_07_15_000000_create_firewall_logs_table.php'    => database_path('migrations/2019_07_15_000000_create_firewall_logs_table.php'),
-            __DIR__ . '/Resources/lang'                                                 => resource_path('lang/vendor/firewall'),
+            __DIR__ . '/Resources/lang'                                                 => $langPath,
         ], 'firewall');
 
         $this->registerMiddleware($router);
         $this->registerListeners();
-        $this->registerTranslations();
+        $this->registerTranslations($langPath);
         $this->registerCommands();
     }
 
@@ -91,15 +97,11 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    public function registerTranslations()
+    public function registerTranslations($langPath)
     {
-        $lang_path = resource_path('lang/vendor/firewall');
+        $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', 'firewall');
 
-        if (is_dir($lang_path)) {
-            $this->loadTranslationsFrom($lang_path, 'firewall');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ . '/Resources/lang', 'firewall');
-        }
+        $this->loadTranslationsFrom($langPath, 'firewall');
     }
 
     public function registerCommands()
