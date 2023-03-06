@@ -96,7 +96,7 @@ trait Helper
             'middleware' => $middleware,
             'user_id' => $user_id,
             'url' => $this->request->fullUrl(),
-            'referrer' => $this->request->server('HTTP_REFERER') ?: 'NULL',
+            'referrer' => substr($this->request->server('HTTP_REFERER'), 0, 191) ?: 'NULL',
             'request' => substr($input, 0, config('firewall.log.max_request_size')),
         ]);
     }
