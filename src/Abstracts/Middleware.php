@@ -12,10 +12,6 @@ abstract class Middleware
 {
     use Helper;
 
-    public $request = null;
-    public $middleware = null;
-    public $user_id = null;
-
     /**
      * Handle an incoming request.
      *

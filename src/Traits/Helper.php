@@ -3,10 +3,15 @@
 namespace Akaunting\Firewall\Traits;
 
 use Akaunting\Firewall\Models\Log;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 trait Helper
 {
+    public Request|string|array|null $request = null;
+    public string|null $middleware = null;
+    public int|null $user_id = null;
+
     public function isEnabled($middleware = null)
     {
         $middleware = $middleware ?? $this->middleware;

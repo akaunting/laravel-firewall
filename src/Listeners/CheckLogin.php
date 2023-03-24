@@ -10,13 +10,9 @@ class CheckLogin
 {
     use Helper;
 
-    /**
-     * Handle the event.
-     *
-     * @param Event $event
-     * @return void
-     */
-    public function handle(Event $event)
+    public string $middleware = 'login';
+
+    public function handle(Event $event): void
     {
         if ($this->skip($event)) {
             return;
@@ -24,17 +20,17 @@ class CheckLogin
 
         $this->request['password'] = '******';
 
-        $log = $this->log('login');
+        $log = $this->log();
 
         event(new AttackDetected($log));
     }
 
-    public function skip($event)
+    public function skip($event): bool
     {
         $this->request = request();
         $this->user_id = 0;
 
-        if ($this->isDisabled('login')) {
+        if ($this->isDisabled()) {
             return true;
         }
 
