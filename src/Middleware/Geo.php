@@ -155,6 +155,33 @@ class Geo extends Middleware
         return $location;
     }
 
+    public function ipregistry($location)
+    {
+        $url = 'https://api.ipregistry.co/' . $this->ip() . '?key=' . env('IPREGISTRY_KEY');
+
+        $response = $this->getResponse($url);
+
+        if (! is_object($response) || empty($response->location)) {
+            return false;
+        }
+
+        $location->continent = $response->location->continent->name;
+        $location->country = $response->location->country->name;
+        $location->country_code = $response->location->country->code;
+        $location->region = $response->location->region->name;
+        $location->city = $response->location->city;
+        $location->timezone = $response->time_zone->id;
+        $location->currency_code = $response->currency->code;
+
+        $location->is_eu = $response->location->in_eu;
+
+        if (! empty($response->location->language->code)) {
+            $location->language_code = $response->location->language->code . '-' . $response->location->country->code;
+        }
+
+        return $location;
+    }
+
     protected function getResponse($url)
     {
         try {
