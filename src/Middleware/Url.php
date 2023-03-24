@@ -11,12 +11,12 @@ class Url extends Middleware
     {
         $protected = false;
 
-        if (!$inspections = config('firewall.middleware.' . $this->middleware . '.inspections')) {
+        if (! $inspections = config('firewall.middleware.' . $this->middleware . '.inspections')) {
             return $protected;
         }
 
         foreach ($inspections as $inspection) {
-            if (!$this->request->is($inspection)) {
+            if (! $this->request->is($inspection)) {
                 continue;
             }
 

@@ -10,12 +10,12 @@ class Rfi extends Middleware
     {
         $result = false;
 
-        if (!is_array($input) && !is_string($input)) {
+        if (! is_array($input) && ! is_string($input)) {
             return false;
         }
 
-        if (!is_array($input)) {
-            if (!$result = preg_match($pattern, $this->applyExceptions($input))) {
+        if (! is_array($input)) {
+            if (! $result = preg_match($pattern, $this->applyExceptions($input))) {
                 return false;
             }
 
@@ -28,22 +28,22 @@ class Rfi extends Middleware
             }
 
             if (is_array($value)) {
-                if (!$result = $this->match($pattern, $value)) {
+                if (! $result = $this->match($pattern, $value)) {
                     continue;
                 }
 
                 break;
             }
 
-            if (!$this->isInput($key)) {
+            if (! $this->isInput($key)) {
                 continue;
             }
 
-            if (!$result = preg_match($pattern, $this->applyExceptions($value))) {
+            if (! $result = preg_match($pattern, $this->applyExceptions($value))) {
                 continue;
             }
 
-            if (!$this->checkContent($result)) {
+            if (! $this->checkContent($result)) {
                 continue;
             }
 

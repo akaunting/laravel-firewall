@@ -10,7 +10,7 @@ class Swear extends Middleware
     {
         $patterns = [];
 
-        if (!$words = config('firewall.middleware.' . $this->middleware . '.words')) {
+        if (! $words = config('firewall.middleware.' . $this->middleware . '.words')) {
             return $patterns;
         }
 

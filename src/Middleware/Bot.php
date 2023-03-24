@@ -12,17 +12,17 @@ class Bot extends Middleware
     {
         $agent = new Agent();
 
-        if (!$agent->isRobot()) {
+        if (! $agent->isRobot()) {
             return false;
         }
 
-        if (!$crawlers = config('firewall.middleware.' . $this->middleware . '.crawlers')) {
+        if (! $crawlers = config('firewall.middleware.' . $this->middleware . '.crawlers')) {
             return false;
         }
 
         $status = false;
 
-        if (!empty($crawlers['allow']) && !in_array((string) $agent->robot(), (array) $crawlers['allow'])) {
+        if (! empty($crawlers['allow']) && ! in_array((string) $agent->robot(), (array) $crawlers['allow'])) {
             $status = true;
         }
 

@@ -11,7 +11,7 @@ class Referrer extends Middleware
     {
         $status = false;
 
-        if (!$blocked = config('firewall.middleware.' . $this->middleware . '.blocked')) {
+        if (! $blocked = config('firewall.middleware.' . $this->middleware . '.blocked')) {
             return $status;
         }
 

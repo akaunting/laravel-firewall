@@ -20,19 +20,19 @@ class Agent extends Middleware
             $status = true;
         }
 
-        if (!$status && $this->isBrowser()) {
+        if (! $status && $this->isBrowser()) {
             $status = true;
         }
 
-        if (!$status && $this->isPlatform()) {
+        if (! $status && $this->isPlatform()) {
             $status = true;
         }
 
-        if (!$status && $this->isDevice()) {
+        if (! $status && $this->isDevice()) {
             $status = true;
         }
 
-        if (!$status && $this->isProperty()) {
+        if (! $status && $this->isProperty()) {
             $status = true;
         }
 
@@ -60,7 +60,7 @@ class Agent extends Middleware
         ];
 
         foreach ($patterns as $pattern) {
-            if (!preg_match($pattern, $agent) == 1) {
+            if (! preg_match($pattern, $agent) == 1) {
                 continue;
             }
 
@@ -72,11 +72,11 @@ class Agent extends Middleware
 
     protected function isBrowser()
     {
-        if (!$browsers = config('firewall.middleware.' . $this->middleware . '.browsers')) {
+        if (! $browsers = config('firewall.middleware.' . $this->middleware . '.browsers')) {
             return false;
         }
 
-        if (!empty($browsers['allow']) && !in_array((string) $this->parser->browser(), (array) $browsers['allow'])) {
+        if (! empty($browsers['allow']) && ! in_array((string) $this->parser->browser(), (array) $browsers['allow'])) {
             return true;
         }
 
@@ -89,11 +89,11 @@ class Agent extends Middleware
 
     protected function isPlatform()
     {
-        if (!$platforms = config('firewall.middleware.' . $this->middleware . '.platforms')) {
+        if (! $platforms = config('firewall.middleware.' . $this->middleware . '.platforms')) {
             return false;
         }
 
-        if (!empty($platforms['allow']) && !in_array((string) $this->parser->platform(), (array) $platforms['allow'])) {
+        if (! empty($platforms['allow']) && ! in_array((string) $this->parser->platform(), (array) $platforms['allow'])) {
             return true;
         }
 
@@ -106,14 +106,14 @@ class Agent extends Middleware
 
     protected function isDevice()
     {
-        if (!$devices = config('firewall.middleware.' . $this->middleware . '.devices')) {
+        if (! $devices = config('firewall.middleware.' . $this->middleware . '.devices')) {
             return false;
         }
 
         $list = ['Desktop', 'Mobile', 'Tablet'];
 
         foreach ((array) $devices['allow'] as $allow) {
-            if (!in_array($allow, $list)) {
+            if (! in_array($allow, $list)) {
                 continue;
             }
 
@@ -127,7 +127,7 @@ class Agent extends Middleware
         }
 
         foreach ((array) $devices['block'] as $block) {
-            if (!in_array($block, $list)) {
+            if (! in_array($block, $list)) {
                 continue;
             }
 
@@ -145,7 +145,7 @@ class Agent extends Middleware
 
     protected function isProperty()
     {
-        if (!$agents = config('firewall.middleware.' . $this->middleware . '.properties')) {
+        if (! $agents = config('firewall.middleware.' . $this->middleware . '.properties')) {
             return false;
         }
 
@@ -158,7 +158,7 @@ class Agent extends Middleware
         }
 
         foreach ((array) $agents['block'] as $block) {
-            if (!$this->parser->is((string) $block)) {
+            if (! $this->parser->is((string) $block)) {
                 continue;
             }
 

@@ -21,7 +21,7 @@ trait Helper
 
     public function isDisabled($middleware = null)
     {
-        return !$this->isEnabled($middleware);
+        return ! $this->isEnabled($middleware);
     }
 
     public function isWhitelist()
@@ -33,7 +33,7 @@ trait Helper
     {
         $middleware = $middleware ?? $this->middleware;
 
-        if (!$methods = config('firewall.middleware.' . $middleware . '.methods')) {
+        if (! $methods = config('firewall.middleware.' . $middleware . '.methods')) {
             return false;
         }
 
@@ -48,12 +48,12 @@ trait Helper
     {
         $middleware = $middleware ?? $this->middleware;
 
-        if (!$routes = config('firewall.middleware.' . $middleware . '.routes')) {
+        if (! $routes = config('firewall.middleware.' . $middleware . '.routes')) {
             return false;
         }
 
         foreach ($routes['except'] as $ex) {
-            if (!$this->request->is($ex)) {
+            if (! $this->request->is($ex)) {
                 continue;
             }
 
@@ -75,15 +75,15 @@ trait Helper
     {
         $middleware = $middleware ?? $this->middleware;
 
-        if (!$inputs = config('firewall.middleware.' . $middleware . '.inputs')) {
+        if (! $inputs = config('firewall.middleware.' . $middleware . '.inputs')) {
             return true;
         }
 
-        if (!empty($inputs['only']) && !in_array((string) $name, (array) $inputs['only'])) {
+        if (! empty($inputs['only']) && ! in_array((string) $name, (array) $inputs['only'])) {
             return false;
         }
 
-        return !in_array((string) $name, (array) $inputs['except']);
+        return ! in_array((string) $name, (array) $inputs['except']);
     }
 
     public function log($middleware = null, $user_id = null, $level = 'medium')

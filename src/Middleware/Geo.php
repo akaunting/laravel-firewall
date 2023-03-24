@@ -15,12 +15,12 @@ class Geo extends Middleware
             return false;
         }
 
-        if (!$location = $this->getLocation()) {
+        if (! $location = $this->getLocation()) {
             return false;
         }
 
         foreach ($places as $place) {
-            if (!$this->isFiltered($location, $place)) {
+            if (! $this->isFiltered($location, $place)) {
                 continue;
             }
 
@@ -33,7 +33,7 @@ class Geo extends Middleware
     protected function isEmpty($places)
     {
         foreach ($places as $place) {
-            if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
+            if (! $list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
                 continue;
             }
 
@@ -49,13 +49,13 @@ class Geo extends Middleware
 
     protected function isFiltered($location, $place)
     {
-        if (!$list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
+        if (! $list = config('firewall.middleware.' . $this->middleware . '.' . $place)) {
             return false;
         }
 
         $s_place = Str::singular($place);
 
-        if (!empty($list['allow']) && !in_array((string) $location->$s_place, (array) $list['allow'])) {
+        if (! empty($list['allow']) && ! in_array((string) $location->$s_place, (array) $list['allow'])) {
             return true;
         }
 
@@ -128,7 +128,7 @@ class Geo extends Middleware
     {
         $response = $this->getResponse('https://api.ipdata.co/' . $this->ip() . '?api-key=' . env('IPSTACK_KEY'));
 
-        if (!is_object($response) || empty($response->country_name) || empty($response->region_name)) {
+        if (! is_object($response) || empty($response->country_name) || empty($response->region_name)) {
             return false;
         }
 
@@ -144,7 +144,7 @@ class Geo extends Middleware
     {
         $response = $this->getResponse('https://ipinfo.io/' . $this->ip() . '/geo?token=' . env('IPINFO_KEY'));
 
-        if (!is_object($response) || empty($response->country) || empty($response->city)) {
+        if (! is_object($response) || empty($response->country) || empty($response->city)) {
             return false;
         }
 
@@ -165,7 +165,7 @@ class Geo extends Middleware
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
             $content = curl_exec($ch);
             curl_close($ch);
-            
+
             $response = json_decode($content);
         } catch (\ErrorException $e) {
             $response = null;

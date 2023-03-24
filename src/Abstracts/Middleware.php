@@ -44,7 +44,7 @@ abstract class Middleware
             return true;
         }
 
-        if (!$this->isMethod()) {
+        if (! $this->isMethod()) {
             return true;
         }
 
@@ -72,7 +72,7 @@ abstract class Middleware
         $log = null;
 
         foreach ($patterns as $pattern) {
-            if (!$match = $this->match($pattern, $this->request->input())) {
+            if (! $match = $this->match($pattern, $this->request->input())) {
                 continue;
             }
 
@@ -94,11 +94,11 @@ abstract class Middleware
     {
         $result = false;
 
-        if (!is_array($input) && !is_string($input)) {
+        if (! is_array($input) && !is_string($input)) {
             return false;
         }
 
-        if (!is_array($input)) {
+        if (! is_array($input)) {
             $input = $this->prepareInput($input);
 
             return preg_match($pattern, $input);
@@ -117,13 +117,13 @@ abstract class Middleware
                 break;
             }
 
-            if (!$this->isInput($key)) {
+            if (! $this->isInput($key)) {
                 continue;
             }
 
             $value = $this->prepareInput($value);
 
-            if (!$result = preg_match($pattern, $value)) {
+            if (! $result = preg_match($pattern, $value)) {
                 continue;
             }
 
