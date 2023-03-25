@@ -10,10 +10,12 @@ class CheckLogin
 {
     use Helper;
 
-    public string $middleware = 'login';
-
     public function handle(Event $event): void
     {
+        $this->request = request();
+        $this->middleware = 'login';
+        $this->user_id = 0;
+
         if ($this->skip($event)) {
             return;
         }
@@ -27,9 +29,6 @@ class CheckLogin
 
     public function skip($event): bool
     {
-        $this->request = request();
-        $this->user_id = 0;
-
         if ($this->isDisabled()) {
             return true;
         }
