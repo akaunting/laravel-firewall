@@ -36,5 +36,7 @@ class CheckLogin
         if ($this->isWhitelist()) {
             return true;
         }
+
+        return false;
     }
 }
