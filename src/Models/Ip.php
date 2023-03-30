@@ -11,9 +11,11 @@ class Ip extends Model
 
     protected $table = 'firewall_ips';
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['ip', 'log_id', 'blocked'];
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
 
     public function log()
     {

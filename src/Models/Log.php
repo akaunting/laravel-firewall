@@ -11,9 +11,11 @@ class Log extends Model
 
     protected $table = 'firewall_logs';
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['ip', 'level', 'middleware', 'user_id', 'url', 'referrer', 'request'];
+
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
 
     public function user()
     {
