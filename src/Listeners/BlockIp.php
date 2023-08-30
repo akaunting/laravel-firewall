@@ -23,8 +23,9 @@ class BlockIp
 
         $log = config('firewall.models.log', Log::class);
         $count = $log::where('ip', $event->log->ip)
-        ->where('middleware', $event->log->middleware)
-        ->whereBetween('created_at', [$start, $end])->count();
+                    ->where('middleware', $event->log->middleware)
+                    ->whereBetween('created_at', [$start, $end])
+                    ->count();
 
         if ($count != config('firewall.middleware.' . $event->log->middleware . '.auto_block.attempts')) {
             return;
