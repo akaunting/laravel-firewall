@@ -172,7 +172,7 @@ return [
                 'block' => [], // i.e. 'London'
             ],
 
-            // ipapi, extremeiplookup, ipstack, ipdata, ipinfo, ipregistry
+            // ipapi, extremeiplookup, ipstack, ipdata, ipinfo, ipregistry, ip2locationio
             'service' => 'ipapi',
 
             'auto_block' => [

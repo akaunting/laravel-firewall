@@ -182,6 +182,30 @@ class Geo extends Middleware
         return $location;
     }
 
+    public function ip2locationio($location)
+    {
+        $url = 'https://api.ip2location.io/?ip=' . $this->ip() . '&key=' . env('IP2LOCATIONIO_KEY');
+
+        $response = $this->getResponse($url);
+
+        if (! is_object($response) || empty($response->location)) {
+            return false;
+        }
+
+        $location->country = $response->country_name;
+        $location->country_code = $response->country_code;
+        $location->region = $response->region_name;
+        $location->city = $response->city_name;
+        $location->latitude = $response->latitude;
+        $location->longitude = $response->longitude;
+        $location->zipcode = $response->zip_code;
+        $location->timezone = $response->time_zone;
+        $location->asn = $response->asn;
+        $location->as = $response->as;
+
+        return $location;
+    }
+
     protected function getResponse($url)
     {
         try {
