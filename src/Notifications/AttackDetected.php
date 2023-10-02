@@ -21,10 +21,8 @@ class AttackDetected extends Notification implements ShouldQueue
 
     /**
      * The notification config.
-     *
-     * @var object
      */
-    public $notifications;
+    public array $notifications;
 
     /**
      * Create a notification instance.
@@ -56,6 +54,16 @@ class AttackDetected extends Notification implements ShouldQueue
         }
 
         return $channels;
+    }
+
+    /**
+     * Get the notification's queues.
+     * @return array|string
+     */
+
+    public function viaQueues(): array
+    {
+        return array_map(fn ($channel) => $channel['queue'] ?? 'default', $this->notifications);
     }
 
     /**
