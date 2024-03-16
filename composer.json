@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.0",
         "laravel/framework": "^9.0|^10.0|^11.0",
         "guzzlehttp/guzzle": "^7.8",
         "jenssegers/agent": "2.6.*"
