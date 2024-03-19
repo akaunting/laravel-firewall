@@ -27,7 +27,7 @@ class BlockIp
                     ->whereBetween('created_at', [$start, $end])
                     ->count();
 
-        if ($count != config('firewall.middleware.' . $event->log->middleware . '.auto_block.attempts')) {
+        if ($count < config('firewall.middleware.' . $event->log->middleware . '.auto_block.attempts')) {
             return;
         }
 
