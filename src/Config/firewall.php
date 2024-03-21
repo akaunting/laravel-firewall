@@ -51,7 +51,22 @@ return [
             'channel' => env('FIREWALL_SLACK_CHANNEL', null), // set null to use the default channel of webhook
             'queue' => env('FIREWALL_SLACK_QUEUE', 'default'),
         ],
+        
+        /*
+        |--------------------------------------------------------------------------
+        | CUSTOM CHANNELS
+        |--------------------------------------------------------------------------
+        |
+        | your applcation notification channels, as documented 
+        | in https://laravel.com/docs/10.x/notifications#custom-channels
+        |
+        */
 
+        // 'custom' => [
+        //     'enabled' => true,
+        //     'channel' => App\Notifications\CustomChannel::class,
+        //     'queue' => 'customqueue',
+        // ],
     ],
 
     'all_middleware' => [
