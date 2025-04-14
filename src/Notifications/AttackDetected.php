@@ -13,6 +13,14 @@ class AttackDetected extends Notification implements ShouldQueue
     use Queueable;
 
     /**
+     * Channels with built-in support, which don't require a custom handler.
+     */
+    const DEFAULT_CHANNELS = [
+        'mail',
+        'slack'
+    ];
+
+    /**
      * The log model.
      *
      * @var object
@@ -50,6 +58,8 @@ class AttackDetected extends Notification implements ShouldQueue
                 continue;
             }
 
+            $channel = in_array($channel, self::DEFAULT_CHANNELS) ? $channel : $settings['channel'];
+
             $channels[] = $channel;
         }
 
@@ -63,7 +73,15 @@ class AttackDetected extends Notification implements ShouldQueue
 
     public function viaQueues(): array
     {
-        return array_map(fn ($channel) => $channel['queue'] ?? 'default', $this->notifications);
+        $channels = [];
+
+        foreach ($this->notifications as $channel => $settings) {
+
+            $key = in_array($channel, self::DEFAULT_CHANNELS) ? $channel : $settings['channel'];
+            
+            $channels[$key] = $settings['queue'] ?? 'default';
+        }
+        return $channels;
     }
 
     /**
