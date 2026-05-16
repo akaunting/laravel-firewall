@@ -26,33 +26,13 @@ jobs:
             testbench: 11.*
         exclude:
           - laravel: 10.*
-            php: 8.2
-          - laravel: 10.*
-            php: 8.3
-          - laravel: 10.*
-            php: 8.4
-          - laravel: 11.*
-            php: 8.2
-          - laravel: 11.*
-            php: 8.3
-          - laravel: 11.*
-            php: 8.4
-          - laravel: 12.*
-            php: 8.2
-          - laravel: 12.*
-            php: 8.3
-          - laravel: 12.*
             php: 8.4
           - laravel: 13.*
             php: 8.2
-          - laravel: 13.*
-            php: 8.3
-          - laravel: 13.*
-            php: 8.4
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -67,4 +47,4 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --no-coverage
