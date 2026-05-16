@@ -1,6 +1,8 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   tests:
@@ -11,7 +13,7 @@ jobs:
     strategy:
       matrix:
         php: ['8.0', '8.1', '8.2', '8.3', '8.4']
-        laravel: [9.*, 10.*, 11.*, 12.*]
+        laravel: ['9.*', '10.*', '11.*', '12.*', '13.*']
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 9.*
@@ -22,6 +24,8 @@ jobs:
             testbench: 9.*
           - laravel: 12.*
             testbench: 10.*
+          - laravel: 13.*
+            testbench: 11.*
         exclude:
           - laravel: 9.*
             php: 8.2
@@ -41,6 +45,13 @@ jobs:
             php: 8.0
           - laravel: 12.*
             php: 8.1
+          - laravel: 13.*
+            php: '8.0'
+          - laravel: 13.*
+            php: '8.1'
+          - laravel: 13.*
+            php: '8.2'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
