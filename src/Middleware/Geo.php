@@ -206,6 +206,31 @@ class Geo extends Middleware
         return $location;
     }
 
+    protected function internetdata($location)
+    {
+        $url = 'https://api.internetdata.io/' . $this->ip();
+
+        if ($key = env('INTERNETDATA_KEY')) {
+            $url .= '?apikey=' . $key;
+        }
+
+        $response = $this->getResponse($url);
+
+        if (! is_object($response) || empty($response->location->country_name)) {
+            return false;
+        }
+
+        $location->continent = $response->location->continent_name;
+        $location->country = $response->location->country_name;
+        $location->country_code = $response->location->country;
+        $location->region = $response->location->region ?? null;
+        $location->city = $response->location->city ?? null;
+        $location->timezone = $response->location->timezone;
+        $location->currency_code = $response->location->currency_code;
+
+        return $location;
+    }
+
     protected function getResponse($url)
     {
         try {
